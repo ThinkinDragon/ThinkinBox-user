@@ -1,0 +1,34 @@
+import { defineNuxtPlugin, useNuxtApp, useRuntimeConfig } from '#app'
+import { Loader } from '@googlemaps/js-api-loader';
+
+export default defineNuxtPlugin((nuxtApp) => {
+
+  nuxtApp.hook('app:created', async() => {
+    if (process.client) {
+      await getMap()
+    }
+  })
+
+  async function getMap() {
+    const config = useRuntimeConfig();
+
+  const loader = new Loader({
+    apiKey: config.public.GMAP_API,
+    version: "weekly",
+    libraries: ["places","geometry"]
+  });
+
+  return loader.load();
+  }
+  return {
+    provide: {
+      getMap
+    },
+  }
+})
+
+declare module '#app' {
+  interface NuxtApp {
+    $getMap: getMap
+  }
+}

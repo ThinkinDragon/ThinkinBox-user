@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "653771987411",
+    "project_id": "vajjan",
+    "storage_bucket": "vajjan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653771987411:android:e376e55f9a3f04c7eef726",
+        "android_client_info": {
+          "package_name": "com.vajjan.partner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHTfFZY9zfTYIHm2idKDgqifMj2H_FJy0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653771987411:android:093345d65934408eeef726",
+        "android_client_info": {
+          "package_name": "com.vajjan.user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHTfFZY9zfTYIHm2idKDgqifMj2H_FJy0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

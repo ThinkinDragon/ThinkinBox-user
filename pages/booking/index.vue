@@ -83,15 +83,19 @@ onMounted(async () => {
   title.value = "Booking"
 
   try {
-    await store.fetchBookings();
+    await store.fetchBookings().then(async(result) => {
+      categories.value = {
+        ...categories.value,
+        Upcoming: store.getUpcomingBookings,
+        Ongoing: store.getOngingBookings,
+        History: store.getCompletedBookings,
+      };
+    }).catch((err) => {
+      console.log(err);
+    });
 
     
-    categories.value = {
-        ...categories.value,
-        Upcoming: store.getUpcomingBookings(),
-        Ongoing: store.getOngingBookings(),
-        History: store.getCompletedBookings(),
-      };
+
     // categories.value = {...categories.value, Upcoming : store.getUpcomingBookings};
     // categories.value = {...categories.value, Ongoing : store.getOngingBookings};
     // categories.value = {...categories.value, History : store.getCompletedBookings};

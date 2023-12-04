@@ -119,7 +119,7 @@ export default defineNuxtConfig({
     },
   },
   
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
   plugins: [
     "~/plugins/useScript.client.ts",

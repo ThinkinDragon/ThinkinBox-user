@@ -31,6 +31,8 @@ export const useMapFunction = (map: any) => {
 
   async function drawRoute(direction: any) {
     await clearMap();
+    console.log(direction);
+    
     if (typeof direction != "undefined" && direction != null) {
       await usePolylineReact().drawRoute(map, direction);
     }

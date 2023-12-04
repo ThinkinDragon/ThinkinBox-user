@@ -157,16 +157,16 @@ onMounted(async () => {
   recenter();
   closeNav();
   
-  tag.value = null
+  //tag.value = null
   d_map_address.value = "" 
   d_latitude.value = 0
   d_longitude.value = 0
   addresses.value = []
             estimate.value = null
   await clearMap();
-  if (tags.value != null) {
-      tag.value = tags.value[0]
-    }
+  // if (tags.value != null) {
+  //     tag.value = tags.value[0]
+  //   }
   //console.log(options.value);
   //map.value = await reloadMap(options.value);
 

@@ -46,7 +46,7 @@ export const useSetting = defineStore("setting", {
     async fetch() {
       const { useService } = useHome();
       const serv = await useService()
-      const { tags,goods,selectedGood, services,items, searchArray, searchServices } = storeToRefs(serv);
+      const { tag,tags,goods,selectedGood, services,items, searchArray, searchServices } = storeToRefs(serv);
 
       await useFetchAuth("/api/user/settings")
         .then((result) => {
@@ -74,6 +74,7 @@ export const useSetting = defineStore("setting", {
           this.social_login = false;//result.social_login;
           
           tags.value = result.tags;
+          tag.value = tags.value[0];
           goods.value = result.goods;
           selectedGood.value = result.goods[0];
           services.value = result.serviceTypes;

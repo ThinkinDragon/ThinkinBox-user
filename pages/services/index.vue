@@ -127,10 +127,13 @@ const title = useState("title");
 
 onMounted(async () => {
     estimate.value = null;
-
-    const result = await Promise.allSettled([ getEta(), getDirection(),]);
+    console.log(tag.value?.active_service_types[0]);
 
     service.value = tag.value?.active_service_types[0];
+    console.log(service.value?.id);
+    const result = await Promise.allSettled([ getEta(), getDirection(),]);
+
+
 });
 
 watchEffect( async() => {
@@ -138,8 +141,9 @@ watchEffect( async() => {
     getEstimateFun(service.value?.id);
     title.value = $_api_(service.value?.name)
     await getEta();
+    await drawRoute(direction.value);
+
     }
-    drawRoute(direction.value);
 })
 
 async function selectService(valStage:number) {

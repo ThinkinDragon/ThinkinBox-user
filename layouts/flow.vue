@@ -157,9 +157,9 @@ async function startMap() {
 
 
     watch(bookingDebounce, () => {
-      if (direction.value) {
-        drawRoute(direction.value);
-      }
+      // if (direction.value) {
+      //   drawRoute(direction.value);
+      // }
 
       if (booking.value != null) {
         if (provider.value != undefined) {

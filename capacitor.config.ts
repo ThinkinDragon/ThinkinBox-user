@@ -62,7 +62,7 @@ if (process.env.VITE_HOST_IP_LIVE_CAPACITOR) {
   //
   if (process.env.STATUS === 'development') {
     config.server = {
-      url: `http://${process.env.VITE_HOST_IP_LIVE_CAPACITOR}:${process.env.PORT}`,
+      url: `https://thinkin-box-user.vercel.app/`,//`http://${process.env.VITE_HOST_IP_LIVE_CAPACITOR}:${process.env.PORT}`,
       cleartext: true,
     }
   } else {

@@ -30,6 +30,7 @@
           <FormLoginOtp v-model:mobile="mobile" v-model:show="show">
             <div class="relative w-full mt-4">
               <div class="relative w-full">
+                <InputOtp v-model="otp" :fields="6"></InputOtp>
                 <InputText class="w-full" type="text" placeholder="Enter Otp" @input="otp = $event.target.value" :value="otp" id="otp" />
               </div>
             </div>

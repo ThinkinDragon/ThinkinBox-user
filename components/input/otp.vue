@@ -1,42 +1,63 @@
+<script lang="ts" setup>
+interface Props {
+  fields: number;
+}
+
+const props = defineProps<Props>();
+
+const data = ref<string[]>([]);
+const firstInputEl = ref<HTMLInputElement[]>([]);
+const emit = defineEmits(['update:modelValue']);
+
+watch(
+  () => data,
+  (newVal: any) => {
+    if (
+      newVal.value != '' &&
+      newVal.value.length === props.fields &&
+      !newVal.value.includes('')
+    ) {
+      emit('update:modelValue', Number(newVal.value.join('')));
+    } else {
+      emit('update:modelValue', null);
+    }
+  },
+  { deep: true }
+);
+
+const handleOtpInput = (e:any) => {
+  if (e.data && e.target.nextElementSibling) {
+    e.target.nextElementSibling.focus();
+  } else if (e.data == null && e.target.previousElementSibling) {
+    e.target.previousElementSibling.focus();
+  }
+};
+
+const handlePaste = (e:ClipboardEvent) => {
+  const pasteData = e.clipboardData.getData('text');
+  let nextEl = firstInputEl.value[0].nextElementSibling;
+  for (let i = 1; i < pasteData.length; i++) {
+    if (nextEl) {
+      data.value[i] = pasteData[i];
+      nextEl = nextEl.nextElementSibling;
+    }
+  }
+};
+
+// 123456
+</script>
+
 <template>
-  <div ref="otpCont" class="flex flex-row w-full justify-between">
-      <OtpInput
-      ref="otpInput"
-      input-classes="flex flex-1 w-1/4 m-1 items-center justify-center text-center h-12 p-2 bg-gray-100 dark:bg-gray-800 border rounded-xl shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 outline-none border-none"
-      separator=" "
-      :num-inputs="digitCount"
-      :should-auto-focus="true"
-      :is-input-num="true"
-      @on-change="handleOnChange"
-      @on-complete="handleOnComplete"
-    />
+  <div class=" flex flex-1 gap-3 m-1 items-center justify-center text-center h-12 p-2 shadow-md rounded-xl" @input="handleOtpInput">
+    <template v-for="field in fields" :key="field">
+      <input
+        v-model="data[field - 1]"
+        ref="firstInputEl"
+        type="text"
+        maxlength="1"
+        class="border text-gray-900 dark:text-gray-200 bg-transparent w-10 h-10 text-center bg-gray-100 dark:bg-gray-800 rounded-xl shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 outline-none border-none"
+        @paste="field === 1 && handlePaste($event)"
+      />
+    </template>
   </div>
 </template>
-
-<script setup lang="ts">
-import OtpInput from 'vue3-otp-input';
-
-  const props = defineProps({
-    default: String,
-    digitCount: {
-      type: Number,
-      required: true
-    }
-  });
-  const emit = defineEmits(['update:otp']);
-  const otpInput = ref(null)
-
-    const handleOnComplete = (value: string) => {
-      //console.log('OTP completed: ', value);
-        emit('update:otp', value)
-    };
-
-    const handleOnChange = (value: string) => {
-      //console.log('OTP changed: ', value);
-        emit('update:otp', value)
-    };
-
-     const clearInput = () => {
-      otpInput.value.clearInput()
-    }
-</script>

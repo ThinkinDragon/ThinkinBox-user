@@ -16,3 +16,5 @@ dist
 !.yarn/versions
 pages/.DS_Store
 .DS_Store
+
+google-services.json

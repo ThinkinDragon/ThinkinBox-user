@@ -11,13 +11,16 @@
 
       </MainMobileDashNav>
     </header>
+    <sub-header class="fixed z-30 inset-x-1 top-11 p-2 items-center">
+      <slot name="subnav"></slot>
+    </sub-header>
     <main class="flex-1 relative overflow-y-auto bg-white dark:bg-gray-900 px-5 pointer-events-auto">
   
       <slot />
     </main>
-    <footer class="py-5 text-center text-white dark:text-gray-900">
+    <!-- <footer class="py-5 text-center text-white dark:text-gray-900">
       
-    </footer>
+    </footer> -->
   </div>
 </template>
 

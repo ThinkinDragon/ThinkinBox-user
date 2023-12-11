@@ -7,6 +7,7 @@ export const useMapFunction = (map: any) => {
   // const pathBounds = useStorage("local/pathBounds",{ id: undefined, bounds: {}});
   // const endLocation = useStorage("local/endLocation",{ id: undefined, coordinate: {}});
   const config = useRuntimeConfig();
+  const { isApp } = useWhatPlatform();
 
   const { setOnCameraMoveStarted, setOnCameraIdle } = storeToRefs(
     usePolyline()
@@ -53,7 +54,7 @@ export const useMapFunction = (map: any) => {
   async function startMap() {
     if (map == null) return true;
 
-    await map.enableCurrentLocation(true);
+    if (isApp) await map.enableCurrentLocation(true);
     await map.setPadding({
       top: 20,
       left: 0,

@@ -100,7 +100,7 @@ export const usePolylineReact = () => {
       return coordinates;
     },
     async clearMap(map:any) {
-      console.log(this.polyline);
+
       if (this.polyline != "undefined" && this.polyline != null) {
         await this.removePolyline(map);
       }
@@ -117,13 +117,18 @@ export const usePolylineReact = () => {
       }
     },
     async rmMark(map:any,params: string) {
-      await map.removeMarkers([params]);
+      try {
+        await map.removeMarkers([params]);
+      } catch (error) {
+        
+      }
     },
     async removePolyline(map:any) {
-      console.log("removing polyline");
-      console.log(this.polyline);
-    
-      map.removePolylines([this.polyline]);
+      try {
+        map.removePolylines([this.polyline]);
+      } catch (error) {
+        
+      }
       this.polyline = null;
     },
   })

@@ -56,6 +56,8 @@ const { gps } = useGeolocation();
 const { reloadMap } = useMapFunction(map.value);
 const setting = useSetting();
 
+const { isVisible } = useKeyboards();
+
 const addressStore = useAddress()
 
 const { center, currPos, markerMoving, mapReady, s_latitude, s_longitude, d_latitude, d_longitude, s_select, d_select } = storeToRefs(addressStore);
@@ -64,7 +66,7 @@ const config = useRuntimeConfig();
 const colorMode = useColorMode()
 
 onMounted(async () => {
-  colorMode.preference = colorMode.value = 'light';
+  colorMode.preference = colorMode.value = 'dark';
 
   s_select.value = false;
   d_select.value = false;
@@ -76,8 +78,25 @@ onMounted(async () => {
      setting.fetch(),getBanner()
   ])
 
+
   //console.log(result);
   
+})
+
+watchEffect(() => {
+  if (isVisible) {
+    useHead({
+    bodyAttrs: {
+      style: `pointer-events:auto !important;`,
+    }
+  })
+  }else{
+    useHead({
+    bodyAttrs: {
+      style: `pointer-events:none !important;`,
+    }
+  })
+  }
 })
 
 
@@ -111,32 +130,6 @@ async function startMap() {
     console.log(error);
   }
 }
-
-Keyboard.addListener('keyboardWillShow', info => {
-  console.log('keyboard will show with height:', info.keyboardHeight);
-  useHead({
-    bodyAttrs: {
-      style: `pointer-events:auto !important;`,
-    }
-  })
-});
-
-Keyboard.addListener('keyboardDidShow', info => {
-  console.log('keyboard did show with height:', info.keyboardHeight);
-});
-
-Keyboard.addListener('keyboardWillHide', () => {
-  console.log('keyboard will hide');
-  useHead({
-    bodyAttrs: {
-      style: `pointer-events:none !important;`,
-    }
-  })
-});
-
-Keyboard.addListener('keyboardDidHide', () => {
-  console.log('keyboard did hide');
-});
 
 provide('map', map)
 provide('mapOptions', options)

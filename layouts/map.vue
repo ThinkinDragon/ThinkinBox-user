@@ -43,6 +43,7 @@ const coordinates = ref(null);
 const markerId = ref(null);
 
 const addressStore = useAddress()
+  const { isApp } = useWhatPlatform();
   const { center,currPos, s_latitude, s_longitude, d_latitude, d_longitude } = storeToRefs(addressStore);
 
   onMounted(async() => {
@@ -67,7 +68,7 @@ async function startMap() {
     // await map.value.setCamera({
     //   coordinate: currPos.value.value,
     // });
-    await map.value.enableCurrentLocation(true);
+    if (isApp) await map.value.enableCurrentLocation(true);
     await map.value.setPadding({
       top: 0,
       left: 0,

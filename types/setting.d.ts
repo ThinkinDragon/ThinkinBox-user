@@ -8,8 +8,6 @@ export interface Setting {
   about:        Static;
   term:         Static;
   privacy:      Static;
-  token:        string;
-  show:        boolean;
   tag:          Tag[];
 }
 

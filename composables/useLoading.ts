@@ -6,10 +6,7 @@ export interface loading {
 }
 
 export const useLoading = defineStore('loading', {
-      persist: {
-    enabled: true,
-    // See below for additional options that go here
-  },
+      persist: { enabled: true,},
     state: ():loading => ({
       loading: false,
       silentLoading: false,

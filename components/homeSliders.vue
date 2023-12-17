@@ -52,7 +52,7 @@ import { type SwipeInstance } from "vant";
 
 
 const store2 = useUser();
-const { show } = storeToRefs(useSetting());
+const { show } = storeToRefs(useToken());
 const { slider_1, slider_2, slider_3 } = storeToRefs(useSetting());
 const config = useRuntimeConfig();
 

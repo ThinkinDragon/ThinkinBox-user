@@ -13,7 +13,6 @@ export function useAuth() {
   const store = useBookings();
   const router = useRouter();
   const sto = useLoading();
-  const config = useRuntimeConfig();
 
   const { platform } = useFirebase();
   const notif = useLocalNotification();

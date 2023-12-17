@@ -19,10 +19,12 @@ export function useBase() {
       //notiError(4000,err?._data?.message,err?._data?.error)
       //notiError(4000,err?.status,err?.message)
       //return await navigateTo('/login')
-      const {logout} = useAuth()
-      logout()
+      // const {logout} = useAuth()
+      // logout()
       //return window.location.pathname = '/login'
-      //return router.push('/login')
+      const router = useRouter()
+
+      return router.push('/login')
     }else if (err?.status == 403) {
       //notiError(4000,err?._data?.message,err?._data?.error)
       notiError(4000,err?.status,err?.message)

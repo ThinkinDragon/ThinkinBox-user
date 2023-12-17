@@ -4,10 +4,7 @@ import { AppUpdate } from "@capawesome/capacitor-app-update";
 const { errorResponse } = useBase();
 
 export const useAppUpdate = defineStore("appUpdate", {
-    persist: {
-    enabled: true,
-    // See below for additional options that go here
-  },
+    persist: { enabled: true, },
   state: () => ({
     result: null,
   }),

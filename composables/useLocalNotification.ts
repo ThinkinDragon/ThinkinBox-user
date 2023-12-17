@@ -8,7 +8,7 @@ interface NotificationData {
   id: number;
 }
 export const useLocalNotification = defineStore("notification", {
-  //persist: { enabled: false},
+  persist: { enabled: false},
   state: () => ({
     token: "",
     notification: null,

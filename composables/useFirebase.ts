@@ -4,10 +4,7 @@ import { defineStore } from "pinia";
 import { useSessionStorage } from "@vueuse/core";
 
 export const useFirebase = defineStore("firebase", {
-  persist: {
-    enabled: true,
-    // See below for additional options that go here
-  },
+  persist: { enabled: true, },
   state: () => ({
     token: "web",
     notification: null,

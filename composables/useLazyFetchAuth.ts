@@ -3,7 +3,7 @@ import { FetchOptions } from "ohmyfetch";
 
 export const useLazyFetchAuth = async(url: string, opts?: FetchOptions) => {
   
-    const {token} = storeToRefs(useUser());
+    const {token} = storeToRefs(useToken());
     const config = useRuntimeConfig()
 
     opts = {

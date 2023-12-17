@@ -35,7 +35,6 @@ const { width, height } = useWindowSize();
 
 
 const store2 = useUser();
-const { show } = storeToRefs(store2);
 
 const swipeRef = ref<SwipeInstance>();
 

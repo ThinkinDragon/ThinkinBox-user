@@ -2,127 +2,145 @@
 // import { defineNuxtPlugin } from '#app'
 
 // export default defineNuxtPlugin(nuxtApp => {
-
-
 //   nuxtApp.$pinia.use(piniaCapacitorPersist)
 // })
 
-import { defineNuxtPlugin } from '#app'
+import { defineNuxtPlugin } from "#app";
 
-import { Preferences, type GetResult, type KeysResult } from '@capacitor/preferences';
-import { type PiniaPluginContext } from 'pinia';
+import {
+  Preferences,
+  type GetResult,
+  type KeysResult,
+} from "@capacitor/preferences";
+import { type PiniaPluginContext } from "pinia";
 
-type Store = PiniaPluginContext['store'];
-type PartialState = Partial<Store['$state']>;
+type Store = PiniaPluginContext["store"];
+type PartialState = Partial<Store["$state"]>;
 type RestoredFunction = (store: Store) => void;
 
 export interface PersistOptions {
-	enabled: true;
-	include?: string[];
-	exclude?: string[];
-	onRestored?: RestoredFunction;
+  enabled: true;
+  include?: string[];
+  exclude?: string[];
+  onRestored?: RestoredFunction;
 }
 
 export interface PersistRules {
-	include: string[];
-	exclude: string[];
+  include: string[];
+  exclude: string[];
 }
 
-declare module 'pinia' {
-	export interface DefineStoreOptionsBase<S, Store> {
-		persist?: PersistOptions;
-	}
+declare module "pinia" {
+  export interface DefineStoreOptionsBase<S, Store> {
+    persist?: PersistOptions;
+  }
 }
 
 const getItem = async (key: string) => {
-	console.log(key,'cap storage call');
-	
-	return Preferences.get({
-		key,
-	}).then((res: GetResult) => {
-		if (res && res.value) return JSON.parse(res.value);
-		else return res.value;
-	});
+  console.log(key, "cap storage call");
+  try {
+    return Preferences.get({
+      key,
+    }).then((res: GetResult) => {
+      if (res && res.value) return JSON.parse(res.value);
+      else return res.value;
+    });
+  } catch (error) {
+    return error;
+  }
 };
 
-const setItem = async (key: string, value: string | number | object): Promise<void> => {
-	return Preferences.set({
-		key,
-		value: JSON.stringify(value),
-	});
+const setItem = async (
+  key: string,
+  value: string | number | object
+): Promise<void> => {
+  return Preferences.set({
+    key,
+    value: JSON.stringify(value),
+  });
 };
 
 export const clear = async (): Promise<void> => {
-	return Preferences.clear();
+  return Preferences.clear();
 };
 
 export const removeItem = async (key: string): Promise<void> => {
-	return Preferences.remove({
-		key,
-	});
+  return Preferences.remove({
+    key,
+  });
 };
 
 export const getKeys = async (): Promise<KeysResult> => {
-	return Preferences.keys();
+  return Preferences.keys();
 };
 
 const updateStorage = async (store: Store, rules: PersistRules) => {
-	const storeKey = store.$id;
+  const storeKey = store.$id;
 
-	if (rules.include || rules.exclude) {
-		const paths = rules.include
-			? rules.include
-			: Object.keys(store.$state).filter((key) => rules.exclude.includes(key) === false);
+  if (rules.include || rules.exclude) {
+    const paths = rules.include
+      ? rules.include
+      : Object.keys(store.$state).filter(
+          (key) => rules.exclude.includes(key) === false
+        );
 
-		const partialState = paths.reduce((acc, curr) => {
-			acc[curr] = store.$state[curr];
-			return acc;
-		}, {} as PartialState);
-		setItem(storeKey, partialState);
-	} else {
-		setItem(storeKey, store.$state);
-	}
+    const partialState = paths.reduce((acc, curr) => {
+      acc[curr] = store.$state[curr];
+      return acc;
+    }, {} as PartialState);
+    setItem(storeKey, partialState);
+  } else {
+    setItem(storeKey, store.$state);
+  }
 };
 
 const restoreState = (
-	store: Store,
-	storeKey: string,
-	rules: PersistRules,
-	onRestored?: RestoredFunction
+  store: Store,
+  storeKey: string,
+  rules: PersistRules,
+  onRestored?: RestoredFunction
 ): Promise<void> =>
-	new Promise((resolve) => {
-		getItem(storeKey).then((result) => {
-			const subscribe = () => {
-				store.$subscribe(() => {
-					updateStorage(store, rules);
-				});
-			};
-			if (result) {
-				store.$patch(result);
-				updateStorage(store, rules).then(() => {
-					subscribe();
-					if (onRestored) onRestored(store);
-					return resolve();
-				});
-			} else {
-				subscribe();
-				return resolve();
-			}
-		});
-	});
+  new Promise((resolve) => {
+    getItem(storeKey).then((result) => {
+      const subscribe = () => {
+        store.$subscribe(() => {
+          updateStorage(store, rules);
+        });
+      };
+      if (result) {
+        store.$patch(result);
+        updateStorage(store, rules).then(() => {
+          subscribe();
+          if (onRestored) onRestored(store);
+          return resolve();
+        });
+      } else {
+        subscribe();
+        return resolve();
+      }
+    });
+  });
 
-export const piniaCapacitorPersist = async ({ options, store }: PiniaPluginContext): Promise<void> => {
-	if (options.persist?.enabled !== true) return;
+export const piniaCapacitorPersist = async ({
+  options,
+  store,
+}: PiniaPluginContext): Promise<void> => {
+  if (options.persist?.enabled !== true) return;
 
-	const rules = {
-		include: options.persist.include,
-		exclude: options.persist.exclude,
-	} as PersistRules;
+  const rules = {
+    include: options.persist.include,
+    exclude: options.persist.exclude,
+  } as PersistRules;
 
-	const storeKey = store.$id;
-	store.restored = restoreState(store, storeKey, rules, options.persist.onRestored);
+  const storeKey = store.$id;
+  store.restored = restoreState(
+    store,
+    storeKey,
+    rules,
+    options.persist.onRestored
+  );
 };
 
-export default defineNuxtPlugin(nuxtApp => {
-  nuxtApp.$pinia.use(piniaCapacitorPersist)
-})
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.$pinia.use(piniaCapacitorPersist);
+});

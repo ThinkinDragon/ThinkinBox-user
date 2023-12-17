@@ -59,5 +59,6 @@ export const useKeyboards = defineStore('keyboard', (): KeyboardComposition => {
     hideKeyboard,showKeyboard
 
   };
-},{  persist: { enabled: true },
-});
+},
+//{  persist: { enabled: true },}
+);

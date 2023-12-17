@@ -110,7 +110,7 @@ const store2 = useUser();
 const { tag, service,selected_item,items, estimate, direction, eta } = storeToRefs(store);
 const { addresses,select_trip_address } = storeToRefs(useDeliveryAddresses());
 
-const { show, user,stage } = storeToRefs(store2);
+const { user,stage } = storeToRefs(store2);
 const setting = useSetting();
 const coordinates = ref();
 const form = useAddress();

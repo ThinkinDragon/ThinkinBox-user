@@ -199,7 +199,7 @@ const { $useScript } = useNuxtApp();
 const store = useService();
 const store2 = useUser();
 const { tag, service, estimate, eta } = storeToRefs(store);
-const { show, user } = storeToRefs(store2);
+const { user } = storeToRefs(store2);
 
 const setting = useSetting();
 const coordinates = ref();

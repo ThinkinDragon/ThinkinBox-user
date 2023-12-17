@@ -3,15 +3,10 @@ import { useService } from "~~/store/home";
 import type { Setting } from "~~/types/setting";
 
 export const useSetting = defineStore("setting", {
-    persist: {
-    enabled: true,
-    // See below for additional options that go here
-  },
+  persist: { enabled: true, },
   state: (): Setting => ({
     referral: [],
     about: null,
-    token: '',
-    show : true,
     term: null,
     privacy: null,
     languages:null,
@@ -42,8 +37,8 @@ export const useSetting = defineStore("setting", {
     },
   },
   actions: {
-    reset(state) {
-      state.$reset();
+    reset() {
+      this.$reset();
     },
     async fetch() {
       const { useService } = useHome();
@@ -51,7 +46,7 @@ export const useSetting = defineStore("setting", {
       const { tag,tags,goods,selectedGood, services,items, searchArray, searchServices } = storeToRefs(serv);
 
       await useFetchAuth("/api/user/settings")
-        .then((result) => {
+        .then((result:any) => {
           
           this.referral = result.referral;
           this.about = result.about;

@@ -157,7 +157,6 @@ const swipeRef2 = ref<SwipeInstance>();
 const store = useService();
 const store2 = useUser();
 const { banners, tags, services } = storeToRefs(store);
-const { show } = storeToRefs(store2);
 const { useBookings } = useBooking();
 const booking = useBookings();
 const { provider } = storeToRefs(booking);

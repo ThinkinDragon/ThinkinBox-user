@@ -9,10 +9,7 @@ export interface language {
 }
 
 export const useLanguage = defineStore('language', {
-  persist: {
-    enabled: true,
-    //exclude:['_translations']
-  },
+  persist: { enabled: true,  /*exclude:['_translations']*/ },
     state: ():language => ({
       language: 'en',
       _translations: null,

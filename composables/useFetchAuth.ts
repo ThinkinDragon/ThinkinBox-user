@@ -3,7 +3,7 @@ import { storeToRefs } from 'pinia';
 import { FetchOptions } from "ohmyfetch";
 
 export const useFetchAuth = (url: string, opts?: FetchOptions) => {
-  const {token} = useSetting();
+  const {token} = useToken();
   const config = useRuntimeConfig()
     const { errorResponse } = useBase();
     const { loading,silentLoading } = storeToRefs(useLoading())
@@ -36,11 +36,12 @@ export const useFetchAuth = (url: string, opts?: FetchOptions) => {
     }, 
     async onResponse({ request, response, options }) {
       // Log response
-      //console.log('[fetch response]', request, response.status, response.body)
       if (response.status == 401) {
 
          const {logout} = useUser();
          await logout();
+         
+        useToken().$reset;
         errorResponse(response)
       }
       if (response.status == 422) {

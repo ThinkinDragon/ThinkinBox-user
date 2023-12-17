@@ -101,10 +101,10 @@ export default defineNuxtConfig({
     ],
   ],
   // or sourcemap: true
-  sourcemap: {
-    server: true,
-    client: true
-  },
+  // sourcemap: {
+  //   server: true,
+  //   client: true
+  // },
   build: {
     transpile: ["@heroicons/vue", "@headlessui/vue"],
   },

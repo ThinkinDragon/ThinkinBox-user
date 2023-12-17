@@ -4,10 +4,7 @@ import type { Notification, Notifications } from "~/types/notifications";
 const { errorResponse } = useBase()
 
   export const useNotification = defineStore('notifications', {
-      persist: {
-    enabled: true,
-    // See below for additional options that go here
-  },
+    persist: { enabled: true, },
     state: ():Notifications => ({
       notifications: [],
     }),

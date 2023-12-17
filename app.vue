@@ -12,8 +12,7 @@
     <NuxtPage />
   </NuxtLayout>
 
-    <capacitor-google-map class="" ref="mapDiv" id="mapDiv" :style="`width:${width}px; height:${height}px; 
-    `"></capacitor-google-map>
+    <capacitor-google-map class="" ref="mapDiv" id="mapDiv" :style="`width:${width}px; height:${height}px;`"></capacitor-google-map>
 
   <div id="sidebar"></div>
   <div id="modals"></div>
@@ -29,9 +28,7 @@
 <script setup lang="ts">
 import { useWindowSize } from "@vueuse/core";
 import { storeToRefs } from "pinia";
-import { GoogleMap } from '@capacitor/google-maps';
 import type { CreateMapArgs } from "@capacitor/google-maps/dist/typings/implementation";
-import { Keyboard } from "@capacitor/keyboard";
 import mapStyle from '~/src/gmapStyle.json';
 import mapStyleDark from '~/src/gmapStyleDark.json';
 
@@ -55,7 +52,7 @@ const { error } = storeToRefs(user)
 const { gps } = useGeolocation();
 const { reloadMap } = useMapFunction(map.value);
 const setting = useSetting();
-const { show } = storeToRefs(setting);
+const { show } = storeToRefs(useToken());
 
 const { isVisible } = useKeyboards();
 

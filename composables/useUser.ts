@@ -1,17 +1,14 @@
 import type { User } from "~/types/home";
 import { defineStore, storeToRefs } from "pinia";
 
-import {
-  InAppBrowser,
-  type InAppBrowserOptions,
+import type {
+   InAppBrowserOptions,
 } from "@awesome-cordova-plugins/in-app-browser";
+import useInBrowser from "./useInBrowser";
 
 
 export const useUser = defineStore('vajjanUser', {
-  persist: {
-    enabled: true,
-    // See below for additional options that go here
-  },
+    persist: { enabled: true, },
     state: () => ({
       showResend : false,
       user : null as any | null,
@@ -29,7 +26,7 @@ export const useUser = defineStore('vajjanUser', {
             return state.user 
           },
           isLoggedIn(state){
-            const {token} = storeToRefs(useSetting());
+            const {token} = storeToRefs(useToken());
 
             return state.user != null || token.value  != null
           },
@@ -131,7 +128,7 @@ export const useUser = defineStore('vajjanUser', {
               body: userCred
             })
               .then(async(result:any) => {
-                const {token} = storeToRefs(useSetting())
+                const {token} = storeToRefs(useToken())
                 token.value = result;
                 
               const router = useRouter();
@@ -247,87 +244,35 @@ console.log(res);
 // formData.append("surl", res.fields.surl);
 // formData.append("furl", res.fields.furl);
 // formData.append("hash", res.fields.hash);
-
+const options : InAppBrowserOptions = {
+  location:"yes",
+  //beforeload: "yes",
+  hideurlbar:"yes",
+  fullscreen:"yes",
+  hidenavigationbuttons:"yes",
+}
+console.log(res.payment_url);
 // xhr.send(formData);
-      
-//PAYUMONEY
-      const options : InAppBrowserOptions = {
-        location:"yes",
-        //beforeload: "yes",
-        hideurlbar:"yes",
-        hidenavigationbuttons:"yes",
-      }
-      console.log(res.payment_url);
-      
-        if (res.payment_url != undefined) {
-          const browser = InAppBrowser.create(res.payment_url,'_self', options);
-          //'loadstart' | 'loadstop' | 'loaderror' | 'exit' | 'beforeload' 
-          browser.on('beforeload').subscribe(event => {
-            console.log("beforeload 1ww");
-            return this.urlFun(event,browser);
-         });
-          browser.on('exit').subscribe(event => {
-            console.log("exit 2ww");
+if (res.payment_url == undefined) return true;
+const inBrowser = useInBrowser(res.payment_url,options);
+ await inBrowser.startBrowser().then((result) => {
+  console.log(result);
+  this.setUser();
+ }).catch((err) => {
+  throw new Error("Error: " + err);
+ });
 
-            return this.urlFun(event,browser);
-         });
-          browser.on('loaderror').subscribe(event => {
-            console.log("loaderror 3ww");
 
-            return this.urlFun(event,browser);
-         });
-          browser.on('loadstart').subscribe(event => {
-            console.log("loadstart 4ww");
-            let domain = (new URL(event.payment_url));
-            let domain2 = (new URL(config.public.BASE_URL));
-            if (domain.hostname === domain2.hostname) {
-              this.setUser()
-              return browser.close()
-            }
-            let data = event.payment_url;
-            console.log(data);
-            let data2 = 'https://www.pagopar.com/';
-            console.log(data === data2 );
-            
-            if (data === data2) {
-              this.setUser()
-              JSON.stringify(domain)
-              return browser.close();
-            }
-            return true;
-         });
-          browser.on('loadstop').subscribe(event => {
-            console.log("loadstop 5ww");
-            return this.urlFun(event,browser);
-         });
-        }
       })
       .catch((err: any) => {
         useLoading().hide();
+        this.setUser();
         //console.log(err.response._data.message);
         //this.error = err.response._data.message;
         return useBase().errorResponse(err);
       });
   },
-  async urlFun(event: any,browser: any) {
-    let domain = (new URL(event.url));
-    let domain2 = (new URL(config.public.BASE_URL));
-    if (domain.hostname === domain2.hostname) {
-      this.setUser()
-      return browser.close()
-    }
-    let data = event.url;
-    console.log(data);
-    let data2 = 'https://www.pagopar.com/';
-    console.log(data === data2 );
-    
-    if (data === data2) {
-      this.setUser()
-      JSON.stringify(domain)
-      return browser.close();
-    }
-    return true;
-  },
+
         async signup (name,email,mobile,device_token,device_id,password,passwordConfirm,dni,referalCode) {
           useLoading().show()
 
@@ -350,7 +295,7 @@ console.log(res);
               },
             }).then(async (result:string) => {
               
-              const {token} = storeToRefs(useSetting())
+              const {token} = storeToRefs(useToken())
               token.value = result;
               this.setUser()
 
@@ -409,9 +354,7 @@ console.log(res);
             .then((result:any) => {
               this.user = null
               
-              const {token,show} = storeToRefs(useSetting())
-              token.value = '';
-              show.value = true;
+              useAuth().$reset();
   
               useLoading().hide();
               return navigateTo('/login')
@@ -425,39 +368,44 @@ console.log(res);
 
           try {
             //$echo.leaveChannel(`Neos.User.${this.user.id}`);
-            const {token,show} = storeToRefs(useSetting());
+            const {token,show} = storeToRefs(useToken());
                 console.log("logout hit token",token.value);
-                
-                const data = await useFetchAuth('/api/user/logout',{
+
+                await useFetchAuth('/api/user/logout',{
                   method: "POST",
                   body: {
                     id: this.user.id,
                   },
                 }).then(async (result:any) => {
+                console.log("logout hit",result);
                 
-                this.user = null
-                
-                token.value = null;
-                show.value = true;
+                this.user = null;
+                useToken().$reset();
                 return navigateTo('/login')  
                 //return navigateTo('/');
 
                 //window.location.pathname = '/login'
                 }).catch((err:any) => {
-                  useBase().errorResponse(err)
+                  console.log(err);
+                  
+                  //useBase().errorResponse(err)
 
                 this.user = null
-                token.value = null;
-                show.value = true;
+                useToken().$reset();
                 return navigateTo('/login')  
                 })
+
+
+                this.user = null
+                useToken().$reset();
+                return navigateTo('/login')  
             }
             catch (error) {
               useBase().errorResponse(error)
           }
         },
         async logout2 () {
-          const {token,show} = storeToRefs(useSetting())
+          const {token,show} = storeToRefs(useToken())
 
           try {
             if (token.value != null) {
@@ -474,9 +422,9 @@ console.log(res);
                   },
                 }).then(async (result:any) => {
                 
-                this.user = null
-                token.value = null;
-                show.value = true;
+                this.user = null;
+                useToken().$reset();
+
                 return navigateTo('/login')  
                 //return navigateTo('/');
 
@@ -485,8 +433,7 @@ console.log(res);
                   useBase().errorResponse(err)
 
                 this.user = null
-                token.value = null;
-                show.value = true;
+                useToken().$reset();
                 return navigateTo('/login')  
                 })
             }

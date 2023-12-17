@@ -1,9 +1,6 @@
 import { defineStore } from "pinia";
 export const usePolyline = defineStore("polyline", {
-  persist: {
-    enabled: true,
-    // See below for additional options that go here
-  },
+  persist: { enabled: true, },
   state: () => ({
     polyline: null,
     startLocation:{ id: undefined, coordinate: {} },

@@ -2,7 +2,7 @@ import type { User } from "~/types/home.d";
 import { defineStore, storeToRefs } from "pinia";
 import {
   InAppBrowser,
-  InAppBrowserOptions,
+  type InAppBrowserOptions,
 } from "@awesome-cordova-plugins/in-app-browser";
 
 export function useAuth() {

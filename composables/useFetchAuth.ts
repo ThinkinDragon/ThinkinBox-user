@@ -39,8 +39,8 @@ export const useFetchAuth = (url: string, opts?: FetchOptions) => {
       //console.log('[fetch response]', request, response.status, response.body)
       if (response.status == 401) {
 
-         const {logout} = useAuth()
-         logout()
+         const {logout} = useUser();
+         await logout();
         errorResponse(response)
       }
       if (response.status == 422) {

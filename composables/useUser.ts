@@ -425,8 +425,9 @@ console.log(res);
 
           try {
             //$echo.leaveChannel(`Neos.User.${this.user.id}`);
-            const {token,show} = storeToRefs(useSetting())
-
+            const {token,show} = storeToRefs(useSetting());
+                console.log("logout hit token",token.value);
+                
                 const data = await useFetchAuth('/api/user/logout',{
                   method: "POST",
                   body: {

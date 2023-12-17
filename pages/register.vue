@@ -7,10 +7,11 @@
         <form action="#" class="space-y-6" @submit.prevent="register">
           <FormRegister v-model:name="name" v-model:email="email" v-model:mobile="mobile" v-model:referalCode="referalCode">
             <div class="relative w-full mt-4">
-                <InputLabel for="otp" value="OTP" />
-                <div class="relative w-full">
-                  <InputText class="w-full" type="text" placeholder="Enter Otp" @input="otp = $event.target.value" :value="otp" id="otp" />
-                </div>
+                <InputLabel for="otp" value="OTP">
+                  <div class="relative w-full">
+                    <InputText class="w-full" type="text" placeholder="Enter Otp" @input="otp = $event.target.value" :value="otp" id="otp" />
+                  </div>
+                </InputLabel>
               <!-- <InputOtp :digit-count="6" @update:otp="otp = $event"></InputOtp> -->
               <!-- <InputLabel for="OTP" value="OTP" />
               <InputOtp :digit-count="6" @update:otp="otp = $event"></InputOtp> -->
@@ -58,7 +59,7 @@
   const { loading } = storeToRefs(sto);
   
   const store = useFirebase();
-  const { useUser } = useAuth();
+  
   const userStore = useUser();
   
   const { error, mobile } = storeToRefs(useUser());

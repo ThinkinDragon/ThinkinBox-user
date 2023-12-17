@@ -1,10 +1,10 @@
 import { defineNuxtPlugin, useRuntimeConfig, useNuxtApp } from "#app";
 
 export default defineNuxtPlugin(() => {
-  const { useUser } = useAuth()
+  const { getLang } = useUser()
 
   function lang(key:any, replacements = {}) {
-    return key[useUser().getLang] ?? key;
+    return key[getLang] ?? key;
   }
 
   return {

@@ -9,8 +9,8 @@
 
 import { defineNuxtPlugin } from '#app'
 
-import { Preferences, GetResult, KeysResult } from '@capacitor/preferences';
-import { PiniaPluginContext } from 'pinia';
+import { Preferences, type GetResult, type KeysResult } from '@capacitor/preferences';
+import { type PiniaPluginContext } from 'pinia';
 
 type Store = PiniaPluginContext['store'];
 type PartialState = Partial<Store['$state']>;
@@ -35,6 +35,8 @@ declare module 'pinia' {
 }
 
 const getItem = async (key: string) => {
+	console.log(key,'cap storage call');
+	
 	return Preferences.get({
 		key,
 	}).then((res: GetResult) => {

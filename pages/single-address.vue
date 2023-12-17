@@ -3,11 +3,11 @@
     <NuxtLayout name="map">
       <template #subnav>
         <ClientOnly >
-          <div class="flex flex-row space-x-2.5 items-center justify-around shadow-xl p-2 bg-gray-100 dark:bg-gray-800 border rounded-lg">
+          <div class="flex flex-row space-x-2.5 items-center justify-around shadow-xl p-2 bg-gray-50 dark:bg-gray-900 border rounded-lg">
             <div class="flex flex-col w-full items-center justify-end ">
               <FormSingleAddressForm v-if="input == 'pickup'" label="address" :street="form.s_map_address"
                 v-model:street="form.s_map_address" v-model:latitude="form.s_latitude" v-model:longitude="form.s_longitude"
-                @selected="isSelected" v-model:map_address="form.s_map_address" @marker="addMarker" @clear="clearS"
+                @selected="isSelected" v-model:map_address="form.s_map_address" @hide-marker="hideMarkerInput"  @marker="addMarker" @clear="clearS"
                 @recenter="selectPickup()" />
               <FormSingleAddressForm v-else label="address" v-model:street="select_trip_address.address"
                 v-model:latitude="select_trip_address.latitude" v-model:longitude="select_trip_address.longitude"
@@ -17,9 +17,10 @@
         </ClientOnly>
 
       </template>
-      <div class=" h-full mx-auto safe-top">
+      <div class=" h-full mx-auto safe-top text-gray-900">
         <Title> {{ title }}</Title>
-        <UIcon v-show="!isOpen" class="pin h-12 w-12" solid name="i-heroicons-map-pin-solid " />
+        {{ !isVisible }}
+        <UIcon v-show="hideMarker" class="pin z-10 h-12 w-12" solid name="i-heroicons-map-pin-solid " />
       </div>
       <template #bottom>
         <div class="fixed bottom-0 md:bottom-32 z-10 w-full p-2 md:max-w-[23rem]" :class="'h-[15vh]'">
@@ -43,7 +44,7 @@
     <teleport to='body' >
       <van-popup
       round style="
-      pointer-events: auto;" 
+      pointer-events: auto;" closeable 
       position="bottom" v-model:show="isOpen">
         <UCard>
           <template #header>
@@ -64,33 +65,35 @@
               </p>
             </template>
           </template>
-  
+          <form  id="formInfo" @submit.prevent="gotoNext()">
+
           <div v-if="input === 'pickup'" class="space-y-3">
               <UFormGroup label="Name" name="name">
-                <UInput size="xl" v-model="select_trip_address.pick_meta.name" />
+                <UInput size="xl" v-model="select_trip_address.pick_meta.name" required />
               </UFormGroup>
               <UFormGroup label="Mobile" name="mobile">
-                <UInput size="xl" type="text" pattern="[1-9]{1}[0-9]{9}" v-model="select_trip_address.pick_meta.phone" />
+                <UInput size="xl" type="text" pattern="[1-9]{1}[0-9]{9}" v-model="select_trip_address.pick_meta.phone" required />
               </UFormGroup>
               <UFormGroup label="sender info" name="name">
-                <URadio v-for="method of addressFor" :key="method.value" v-model="selectedDeliverTo" v-bind="method" />
+                <URadio v-for="method of addressFor" :key="method.value" v-model="selectedDeliverTo" v-bind="method" required />
               </UFormGroup>
           </div>
           <div v-else class="space-y-3">
             <UFormGroup label="Name" name="name">
-              <UInput size="xl" v-model="select_trip_address.drop_meta.name" />
+              <UInput size="xl" v-model="select_trip_address.drop_meta.name" required />
             </UFormGroup>
             <UFormGroup label="Mobile" name="mobile">
-              <UInput size="xl" type="text" pattern="[1-9]{1}[0-9]{9}" v-model="select_trip_address.drop_meta.phone" />
+              <UInput size="xl" type="text" pattern="[1-9]{1}[0-9]{9}" v-model="select_trip_address.drop_meta.phone" required />
             </UFormGroup>
 
             <UFormGroup label="to User info" name="name">
               <URadio v-for="method of addressFor" :key="method.value" v-model="selectedDeliverTo" v-bind="method" />
             </UFormGroup>
           </div>
+          </form>
           <template #footer>
             <div class="w-full justify-end">
-              <UButton @click="gotoNext" block size="lg" color="primary">
+              <UButton type="submit" form="formInfo" block size="lg" color="primary">
                 Next
               </UButton>
             </div>
@@ -105,9 +108,9 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
 import { useWindowSize, useDebounceFn } from "@vueuse/core";
-import { Keyboard } from '@capacitor/keyboard';
 import type { trip_address, latLng } from "~~/types/booking";
 import { useMemoize, watchThrottled } from '@vueuse/core'
+import { Keyboard, type KeyboardInfo } from '@capacitor/keyboard';
 
 definePageMeta({
   layout: false,
@@ -124,6 +127,12 @@ const searchAddress = ref(false);
 const map = inject('map')
 
 const isOpen = ref(false)
+const {isVisible} = useKeyboards()
+
+
+const hideMarkerInput = ref(false)
+
+const hideMarker = computed(() => (!isOpen.value || !isVisible) && hideMarkerInput.value)
 
 const inputPickup = ref(false)
 const inputDrop = ref(false)
@@ -139,7 +148,7 @@ const dataFill = computed(() =>
   }
 )
 
-const { useUser } = useAuth();
+
 const {user} = useUser();
 
 
@@ -369,7 +378,10 @@ async function selectDrop() {
 
 
 function isSelected(params: any) {
-  console.log(params);
+  console.log("select:",params);
+  hideMarkerInput.value = !params;
+  console.log("show marker",hideMarker.value,"input selected",hideMarkerInput.value,"is open",!isOpen.value,"keyboard visible", isVisible );
+  
 }
 
 const geoCodeMemo = useMemoize(async (c:any) =>
@@ -384,14 +396,16 @@ function clearS() {
 
 
 async function gotoNext() {
-  if (select_trip_address.value == undefined)  return true;
+  if (select_trip_address.value == undefined)  
+    return true;
 
   if ( input == 'pickup') {
     isOpen.value = select_trip_address.value.pick_meta.name == '' || select_trip_address.value.pick_meta.phone == ''
     }else{
       isOpen.value = select_trip_address.value.drop_meta.name == '' || select_trip_address.value.drop_meta.phone == ''
     }
-    if (isOpen.value) return true;
+    if (isOpen.value) {
+    return true};
     unwatch1(); 
     unwatch2();
     

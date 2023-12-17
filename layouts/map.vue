@@ -1,4 +1,6 @@
 <template>
+  <div>
+    
   <header class="flex-1 items-center">
     <MainMobileDashNav>
       <template #action>
@@ -26,6 +28,7 @@
     <slot name="bottom" />
   </footer>
 <!-- :style="`width:${width}px; height:${height}px;`" -->
+  </div>
 </template>
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
@@ -48,9 +51,7 @@ const addressStore = useAddress()
 
   onMounted(async() => {
     //await startMap();
-      setTimeout(async() => {
-        
-      }, 1000);
+
   })
 
 async function startMap() {

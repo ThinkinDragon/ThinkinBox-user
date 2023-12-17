@@ -11,7 +11,7 @@
     
           <div class="inline-flex items-center justify-center space-x-10">
             <p class="text-base font-medium leading-normal text-center">{{ $__("Your Referral id") }}</p>
-            <div class="flex items-center justify-start w-32 h-full py-3 pl-4 pr-10 bg-gray-100 dark:bg-gray-800 border border-gray-300 rounded-lg bg-opacity-40">
+            <div class="flex items-center justify-start w-32 h-full py-3 pl-4 pr-10 bg-gray-50 dark:bg-gray-900 border border-gray-300 rounded-lg bg-opacity-40">
               <p class="text-base leading-normal text-gray-500">{{user.referral_unique_id}}</p>
             </div>
           </div>
@@ -39,14 +39,15 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { Share } from "@capacitor/share";
-const { $__ } = useNuxtApp()
+
 definePageMeta({
   
   layout: false,
 });
+
+const { $__ } = useNuxtApp()
 const title = useState("title");
 const setting = useSetting()
-const {useUser} = useAuth()
 const { user } = storeToRefs(useUser())
 title.value = $__("Referral")
 

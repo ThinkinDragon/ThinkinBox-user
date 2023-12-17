@@ -2,7 +2,7 @@
     <div>
         <NuxtLayout name="map">
             <template #topnav>
-                <button class=" z-20 absolute top-0 w-10 h-10 bg-white dark:bg-gray-900 p-2 m-2 rounded-full">
+                <button class=" z-20 absolute top-0 w-10 h-10 bg-gray-50 dark:bg-gray-900 p-2 m-2 rounded-full">
                     <svg @click="serviceBack()" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -17,10 +17,10 @@
             </template>
 
             <template #subnav>
-                <div class="flex flex-row space-x-2 items-center shadow-xl justify-around p-2 bg-gray-100 dark:bg-gray-800 border rounded-lg">
+                <!-- <div class="flex flex-row space-x-2 items-center shadow-xl justify-around p-2 bg-gray-50 dark:bg-gray-900 border rounded-lg">
                     <div class="flex w-10 flex-col space-y-2 items-center justify-center">
                         <div class="flex w-4 h-4 bg-primary rounded-full" />
-                        <div class="transform -rotate-90 w-8 h-1 bg-white dark:bg-gray-900 rounded-full" />
+                        <div class="transform -rotate-90 w-8 h-1 bg-gray-50 dark:bg-gray-900 rounded-full" />
                         <svg class="w-full h-6 rounded-full" viewBox="0 0 13 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -46,7 +46,7 @@
 
                         </nuxt-link>
                     </div>
-                </div>
+                </div> -->
             </template>
 
             <template #sheet>
@@ -103,7 +103,7 @@ const {drawRoute} = useMapFunction(map.value);
 const route = useRoute()
 const router = useRouter()
 const { useService, getEstimate, getEta,getDirection, getBanner } = useHome();
-const { useUser } = useAuth();
+
 const config = useRuntimeConfig();
 const sto = useLoading();
 const { loading, silentLoading } = storeToRefs(sto)
@@ -156,6 +156,7 @@ async function getEstimateFun(valStage:number) {
 }
 
 async function serviceBack() {
+    return router.back();
     if (stage.value > 0) {
         return stage.value--;
     }

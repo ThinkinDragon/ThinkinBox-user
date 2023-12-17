@@ -1,4 +1,4 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from '@capacitor/cli';
 import { KeyboardResize, KeyboardStyle } from '@capacitor/keyboard';
 import dotenv from 'dotenv'
 
@@ -60,10 +60,9 @@ if (process.env.VITE_HOST_IP_LIVE_CAPACITOR) {
   // Uncomment this to enable live-reload.
   // For Android, need to run `adb reverse tcp:4000 tcp:4000` to port-forward the Frontend server to the emulator.
   //
-  if (true || process.env.STATUS === 'development') {
+  if (process.env.STATUS === 'development') {
     config.server = {
-      androidScheme: "https",
-      url: `https://thinkin-box-user.vercel.app/`,//`http://${process.env.VITE_HOST_IP_LIVE_CAPACITOR}:${process.env.PORT}`,
+      url: `http://${process.env.VITE_HOST_IP_LIVE_CAPACITOR}:${process.env.PORT}`,
       cleartext: true,
     }
   } else {
@@ -76,3 +75,22 @@ if (process.env.VITE_HOST_IP_LIVE_CAPACITOR) {
 }
 
 export default config;
+
+// if (process.env.VITE_HOST_IP_LIVE_CAPACITOR) {
+
+//   if (true || process.env.STATUS === 'development') {
+//     config.server = {
+//       androidScheme: "https",
+//       url: `https://thinkin-box-user.vercel.app/`,//`http://${process.env.VITE_HOST_IP_LIVE_CAPACITOR}:${process.env.PORT}`,
+//       cleartext: true,
+//     }
+//   } else {
+//     config.server = {
+//       androidScheme: "http",
+//       cleartext: true,
+//       hostname: `${process.env.HOSTNAME}:${process.env.PORT}`
+//     }
+//   }
+// }
+
+// export default config;

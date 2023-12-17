@@ -54,11 +54,20 @@ export default defineNuxtConfig({
     pageTransition: {
       name: "fade",
       mode: "out-in", // default
+      // onBeforeEnter: (el) => {
+      //   console.log('Before enter...',el);
+      // },
+      // onEnter: (el, done) => {        
+      //   console.log('On Enter...',el,done);
+      // },
+      // onAfterEnter: (el) => {        
+      //   console.log('After enter...',el);
+      // }
     },
-    // layoutTransition: {
-    //   name: "slide",
-    //   mode: "out-in", // default
-    // },
+    layoutTransition: {
+      name: "slide",
+      mode: "out-in", // default
+    },
   },
   colorMode: {
     preference: 'light', // default value of $colorMode.preference
@@ -76,6 +85,7 @@ export default defineNuxtConfig({
     '@nuxtjs/critters',
     'nuxt-lodash','@nuxtjs/fontaine',
     "nuxt-icon",
+    //"nuxt-auth-sanctum",
     "@vueuse/nuxt",
     [
       "@pinia/nuxt",
@@ -120,6 +130,16 @@ export default defineNuxtConfig({
   },
   
   devtools: { enabled: false },
+
+//   sanctum: {
+//     baseUrl: process.env.BASE_URL, // Laravel API
+//     endpoints: {
+//       csrf: '/sanctum/csrf-cookie', // CSRF cookie endpoint
+//       login: '/api/user/oauth/token', // Endpoint that accepts user credentials
+//       logout: '/api/user/logout', // Endpoint to destroy the current session
+//       user: '/api/user/details', // Endpoint that return current user information
+//   },
+// },
 
   plugins: [
     "~/plugins/useScript.client.ts",

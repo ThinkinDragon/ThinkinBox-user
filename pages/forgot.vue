@@ -38,7 +38,7 @@ const otp = ref("");
 const password = ref("");
 const passwordConfirm = ref("");
 
-const { useUser } = useAuth();
+
 const userStore = useUser();
 
 const store = useFirebase();

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col h-screen">
-    <header class=" bg-white dark:bg-gray-900 items-center">
+    <header class=" bg-gray-50 dark:bg-gray-900 items-center">
       <MainMobileDashNav>
         <template v-slot:full>
           <slot name="full"></slot>
@@ -14,7 +14,7 @@
     <sub-header class="fixed z-30 inset-x-1 top-11 p-2 items-center">
       <slot name="subnav"></slot>
     </sub-header>
-    <main class="flex-1 relative overflow-y-auto bg-white dark:bg-gray-900 px-5 pointer-events-auto">
+    <main class="flex-1 relative overflow-y-auto bg-gray-50 dark:bg-gray-900 px-5 pointer-events-auto">
   
       <slot />
     </main>
@@ -33,7 +33,7 @@ const title = useState("title", () => "");
 const { removeUser, isLoggedIn, getUser } = useAuth();
 const { width, height } = useWindowSize();
 
-const { useUser } = useAuth();
+
 const store2 = useUser();
 const { show } = storeToRefs(store2);
 

@@ -1,9 +1,9 @@
 <template>
   <div class="space-y-3">
-    <div class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-100 dark:bg-gray-800 border rounded-lg">
+    <div class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-50 dark:bg-gray-900 border rounded-lg">
         <div class="flex w-10 flex-col space-y-2 items-center justify-center">
             <div class="flex w-4 h-4 bg-primary rounded-full" />
-            <div class="transform -rotate-90 w-8 h-1 bg-white dark:bg-gray-900 rounded-full" />
+            <div class="transform -rotate-90 w-8 h-1 bg-gray-50 dark:bg-gray-900 rounded-full" />
             <svg class="w-full h-6 rounded-full" viewBox="0 0 13 16" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -128,7 +128,7 @@ const config = useRuntimeConfig();
 const store = useHome().useService();
 const selected = ref(0);
 const { items} = storeToRefs(store);
-const { useUser } = useAuth();
+
 const {user} = useUser();
 
 const tabItems = [{
@@ -138,7 +138,7 @@ const tabItems = [{
 }, {
   key: 'to',
   label: 'deliver to',
-  description: 'set user info for drip location for verification'
+  description: 'set user info for drop location for verification'
 }, {
   key: 'items',
   label: 'deliver item',

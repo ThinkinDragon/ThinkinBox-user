@@ -47,7 +47,7 @@ const { errorResponse } = useBase();
 const router = useRouter();
 const config = useRuntimeConfig();
 
-const { useUser, logout } = useAuth();
+const { logout } = useAuth();
 const { user } = storeToRefs(useUser());
 
 const name = ref("");

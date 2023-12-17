@@ -1,17 +1,20 @@
 <template>
   <div class="flex flex-col items-start justify-between w-full">
     <div class="relative w-full mt-4">
-      <InputLabel for="Name" value="Name" />
+      <InputLabel for="Name" value="Name">
       <InputText class="w-full" placeholder="Enter Your Name" @input="$emit('update:name', $event.target.value)" :value="name" id="name" />
+      </InputLabel>
     </div>
     <div class="relative w-full mt-4">
-      <InputLabel for="email" value="Email" />
+      <InputLabel for="email" value="Email" >
       <InputText type="email" class="w-full" placeholder="Enter Email" @input="$emit('update:email', $event.target.value)" :value="email" id="email" />
+      </InputLabel>
     </div>
     <div class="relative w-full mt-4">
-      <InputLabel for="mobile" value="Mobile" />
+      <InputLabel for="mobile" value="Mobile">
 
       <InputText type="tel" maxlength="11" class="w-full" placeholder="Enter Mobile" @input="$emit('update:mobile', $event.target.value)" :value="mobile" id="mobile" disabled />
+      </InputLabel>
     </div>
 
     <slot/>
@@ -54,8 +57,9 @@
       <!-- <InputText class="w-full" type="password" placeholder="Enter Password again" @input="$emit('update:passwordConfirm', $event.target.value)" :value="passwordConfirm" id="passwordConfirm" /> -->
     <!-- </div> -->
     <div class="relative w-full mt-4">
-      <InputLabel for="Referral" value="Referral" />
-      <InputText class="w-full" placeholder="Enter Referral (optional)" @input="$emit('update:referalCode', $event.target.value)" :value="referalCode" id="referalCode" />
+      <InputLabel for="Referral" value="Referral">
+        <InputText class="w-full" placeholder="Enter Referral (optional)" @input="$emit('update:referalCode', $event.target.value)" :value="referalCode" id="referalCode" />
+      </InputLabel>
     </div>
     <div class="relative w-full mt-4">
       <div class="inline-flex items-center justify-end h-6 space-x-1">

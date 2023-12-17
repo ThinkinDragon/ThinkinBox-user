@@ -115,7 +115,7 @@ definePageMeta({
   middleware: ["auth"],
 });
 const { $apiFetch,$__ } = useNuxtApp();
-const { useUser, removeUser, logout } = useAuth();
+const { removeUser, logout } = useAuth();
 const { user } = storeToRefs(useUser());
 const { errorResponse } = useBase();
 const title = useState("title");

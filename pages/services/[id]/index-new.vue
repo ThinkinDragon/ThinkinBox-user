@@ -66,7 +66,7 @@ definePageMeta({
   middleware: ["auth"],
 });
 let fdata = new FormData();
-const { useUser } = useAuth();
+
 const form = useAddress();
 const isSchedule = ref(false);
 const description = ref(null);

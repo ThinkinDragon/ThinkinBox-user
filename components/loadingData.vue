@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import DogJSON from '~/assets/json/loading.json'
+import DogJSON from '~/assets/json/datamobile.json'
 
 defineProps({
   data:Object

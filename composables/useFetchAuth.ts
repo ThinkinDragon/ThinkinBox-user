@@ -3,17 +3,17 @@ import { storeToRefs } from 'pinia';
 import { FetchOptions } from "ohmyfetch";
 
 export const useFetchAuth = (url: string, opts?: FetchOptions) => {
-    const {token} = storeToRefs(useAuth().useUser());
-    const config = useRuntimeConfig()
+  const {token} = useSetting();
+  const config = useRuntimeConfig()
     const { errorResponse } = useBase();
     const { loading,silentLoading } = storeToRefs(useLoading())
-    
+
     const apiFetch = $fetch.create({
         baseURL: config.public.BASE_URL,
         credentials: "include",
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${token.value ?? ""}`,
+          Authorization: `Bearer ${token || ""}`,
         },
       })
 
@@ -29,6 +29,8 @@ export const useFetchAuth = (url: string, opts?: FetchOptions) => {
   return apiFetch(url,{...opts,
     async onRequest({ request, options }) {
       // Log request
+      //console.log(token);
+      
       //console.log('[fetch request]', request, options)
       debouncedFn();
     }, 
@@ -36,6 +38,7 @@ export const useFetchAuth = (url: string, opts?: FetchOptions) => {
       // Log response
       //console.log('[fetch response]', request, response.status, response.body)
       if (response.status == 401) {
+
          const {logout} = useAuth()
          logout()
         errorResponse(response)

@@ -4,16 +4,16 @@
       <Title>{{ title }}</Title>
       <TabGroup>
         <TabList class="flex p-1 space-x-1 rounded-xl">
-          <Tab v-for="category in Object.keys(categories)" as="template" :key="category" v-slot="{ selected }">
-            <button @click="routerr(category)" :class="['w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-gray-700', 'ring-white ring-opacity-60 ring-offset-2 ring-offset-gray-400', selected ? 'bg-gray-300 shadow' : 'text-gray-400 hover:bg-white/[0.12]']">
+          <Tab v-for="category in Object.keys(categories)" as="template" :key="category" v-slot="{ selected }" class="">
+            <UButton :ui="{base:'justify-center text-center flex flex-grow '}" @click="routerr(category)" size="xl" color="gray" :variant="selected?'solid':'ghost'">
               {{ category }}
-            </button>
+            </UButton>
           </Tab>
         </TabList>
   
         <TabPanels class="mt-2">
-          <TabPanel v-for="(posts, idx) in Object.values(categories)" :key="idx" :class="['rounded-xl bg-white dark:bg-gray-900 p-3', 'ring-white ring-opacity-60 ring-offset-2 ring-offset-gray-400']">
-            <ul>
+          <TabPanel v-for="(posts, idx) in Object.values(categories)" :key="idx" :class="['rounded-xl bg-gray-50 dark:bg-gray-900 p-3', 'ring-white ring-opacity-60 ring-offset-2 ring-offset-gray-400']">
+            <ul class="flex flex-col gap-3">
               <RequestItem v-if="posts.length > 0" v-for="post in posts" :key="post.id" :request="post" />
               <div v-else class="inline-flex flex-col items-center justify-start py-28">
                 <div class="flex flex-col items-center justify-end flex-1 space-y-16">

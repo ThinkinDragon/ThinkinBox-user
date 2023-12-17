@@ -2,14 +2,14 @@
   <div>
   <NuxtLayout name="map">
     <template #subnav >
-      <!-- class="fixed top-0 w-full md:top-2 flex flex-col md:pt-2 md:pr-4 md:max-w-sm md:mt-16 safe-top bg-white dark:bg-gray-900 md:bg-transparent rounded-lg" -->
+      <!-- class="fixed top-0 w-full md:top-2 flex flex-col md:pt-2 md:pr-4 md:max-w-sm md:mt-16 safe-top bg-gray-50 dark:bg-gray-900 md:bg-transparent rounded-lg" -->
       <form id="address" class="space-y-10 flex flex-col w-full rounded-b-lg" @submit.prevent="goto()">
-        <div class="flex flex-row space-x-2.5 items-center justify-around shadow-xl max-w-sm p-2 bg-gray-100 dark:bg-gray-800 border rounded-lg">
+        <div class="flex flex-row space-x-2.5 items-center justify-around shadow-xl max-w-sm p-2 bg-gray-50 dark:bg-gray-900 border rounded-lg">
           <div class="flex w-10 flex-col space-y-2 items-center justify-center">
             <div class="flex w-4 h-4 bg-primary rounded-full" />
-            <div class="transform -rotate-90 w-9 h-1 bg-white dark:bg-gray-900 rounded-full" />
+            <div class="transform -rotate-90 w-9 h-1 bg-gray-50 dark:bg-gray-900 rounded-full" />
             <template v-if="type === 'multi'">
-            <div v-for="(item, index) in addresses" :key="index" class="transform -rotate-90 w-9 h-1 bg-white dark:bg-gray-900 rounded-full" />
+            <div v-for="(item, index) in addresses" :key="index" class="transform -rotate-90 w-9 h-1 bg-gray-50 dark:bg-gray-900 rounded-full" />
             </template>
             <svg class="w-full h-6 rounded-full" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"

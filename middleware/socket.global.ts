@@ -7,7 +7,7 @@
 
     if (process.client) {
       if (isLoggedIn.value) {
-        useAuth().useUser().connectWs()
+        useUser().connectWs()
       }
     }
 //     const { $echo } = useNuxtApp()

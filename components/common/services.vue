@@ -3,7 +3,7 @@
     <div class="flex flex-nowrap gap-2 ">
       <div :class="[
         ' px-3 m-1 w-24 h-24 justify-center items-center inline-block max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition duration-300 ease-in-out',
-        value === item ? 'bg-primary-300 dark:bg-primary-900' : 'bg-white dark:bg-gray-900',
+        value === item ? 'bg-primary-300 dark:bg-primary-900' : ' bg-gray-50 dark:bg-gray-700',
         value === item ? 'ring-2 ring-primary-200 dark:ring-primary-800' : 'ring-1 ring-primary-200 dark:ring-primary-800',
         value === item ? 'shadow' : '',
       ]
@@ -31,7 +31,7 @@
       </div>
     </div>
   </div>
-  <teleport to='body' >
+  <teleport to='body'>
     <UModal class="z-[999999] p-2" style="
     pointer-events: auto;" v-model="showDesc">
       <UCard>

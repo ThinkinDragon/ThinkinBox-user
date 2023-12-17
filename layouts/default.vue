@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col h-screen">
-    <header class="py-5 bg-white dark:bg-gray-900 items-center">
+    <header class="py-5 bg-gray-50 dark:bg-gray-900 items-center">
       <MainMobileNav />
     </header>
     <main class="flex-1 overflow-y-auto p-5">
@@ -19,7 +19,7 @@ import { storeToRefs } from "pinia";
 const { width, height } = useWindowSize();
 const title = useState("title");
 const {  platform } = storeToRefs(useFirebase())
-const { useUser } = useAuth();
+
 
 onMounted(async() => {
   await useFirebase().device()

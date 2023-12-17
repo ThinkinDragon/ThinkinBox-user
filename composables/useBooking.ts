@@ -12,7 +12,8 @@ export function useBooking() {
 
   const useBookings = defineStore("booking", {
       persist: { enabled: true,exclude:['booking']},
-    state: () => ({
+    state: () => ({      
+      recentBookings: [] as Booking[],
       bookings: [] as Booking[],
       booking: null as Booking | null,
       provider: null as Provider| null,
@@ -46,6 +47,7 @@ export function useBooking() {
           //if (this.bookings == undefined || this.bookings == []) {
             await useFetchAuth("/api/user/trips").then((result) => {
               this.bookings = result;
+              this.recentBookings = {...this.getOngingBookings,...this.getCompletedBookings};
               }).catch((err) => {
                 errorResponse(err)
               })
@@ -166,8 +168,8 @@ export function useBooking() {
             }
             //ACCEPTED,STARTED,ARRIVED,PICKEDUP,DROPPED,PAYMENT,COMPLETED,IMAGE
           }).then(()=>{
-            this.booking = null
-            return navigateTo('/')
+            this.flowBooking(id)
+            //return navigateTo('/')
           }).catch((err) => {
             errorResponse(err)
           })

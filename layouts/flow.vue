@@ -102,7 +102,7 @@ let delayFactor = 0;
 
 let icons: any;
 
-const { useUser } = useAuth();
+
 
 onMounted(async () => {
   setTimeout(async () => {

@@ -1,5 +1,5 @@
 <template>
-    <nav class="hidden px-6 py-6 text-lg bg-white dark:bg-gray-900 shadow md:flex md:dlock">
+    <nav class="hidden px-6 py-6 text-lg bg-gray-50 dark:bg-gray-900 shadow md:flex md:dlock">
       <div class="container flex items-center justify-between px-6 mx-auto ">
         <div>
           <NuxtLink to="/">Logo</NuxtLink>

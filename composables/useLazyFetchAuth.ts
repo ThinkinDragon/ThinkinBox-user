@@ -2,7 +2,7 @@ import { storeToRefs } from 'pinia';
 import { FetchOptions } from "ohmyfetch";
 
 export const useLazyFetchAuth = async(url: string, opts?: FetchOptions) => {
-  const { useUser } = useAuth();
+  
     const {token} = storeToRefs(useUser());
     const config = useRuntimeConfig()
 

@@ -29,7 +29,7 @@
               v-for="(posts, idx) in faqs"
               :key="idx"
               :class="[
-                'rounded-xl bg-white dark:bg-gray-900 p-3',
+                'rounded-xl bg-gray-50 dark:bg-gray-900 p-3',
                 'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 ',
               ]"
             >

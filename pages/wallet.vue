@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtLayout name="single">
-      <div class="inline-flex flex-col items-center justify-end w-full pt-4 pb-6 pl-5 pr-4 space-y-6 bg-white dark:bg-gray-900">
+      <div class="inline-flex flex-col items-center justify-end w-full pt-4 pb-6 pl-5 pr-4 space-y-6 bg-gray-50 dark:bg-gray-900">
         <div class="inline-flex flex-col items-center justify-start py-2">
           <div class="flex flex-col items-center justify-end flex-1 space-y-16">
             <img class="flex-1 rounded-lg w-36 h-32" src="~/assets/image/wallet.svg" />
@@ -16,14 +16,14 @@
             <p class="text-3xl font-medium text-center text-gray-900 dark:text-gray-200">{{ useUser().getCurrency(getWallet) }}</p>
     
             <div class="inline-flex items-end justify-center space-x-2.5">
-              <input v-model="recharge" class="w-20 text-sm font-medium text-center text-gray-900 border-0 border-b-2" type="text" />
-              <button @click="recharge = '100000'" class="flex items-center justify-center px-3 py-2 text-xs font-thin text-center text-gray-900 bg-white dark:bg-gray-900 border border-gray-400 rounded-lg">
-                {{ useUser().getCurrency(100000) }}
-              </button>
-              <button @click="recharge = '200000'" class="flex items-center justify-center px-3 py-2 text-xs font-thin text-center text-gray-900 bg-white dark:bg-gray-900 border border-gray-400 rounded-lg">
-                {{ useUser().getCurrency(200000) }}
-              </button>
-              <!-- <button @click="recharge = '500000'" class="flex items-center justify-center px-3 py-2 text-xs font-thin text-center text-gray-900 bg-white dark:bg-gray-900 border border-gray-400 rounded-lg">
+              <UInput v-model="recharge" size="xl" type="text" />
+              <UButton @click="recharge = '500'" size="xl" >
+                {{ useUser().getCurrency(500) }}
+              </UButton>
+              <UButton @click="recharge = '1000'" size="xl">
+                {{ useUser().getCurrency(1000) }}
+              </UButton>
+              <!-- <button @click="recharge = '500000'" class="flex items-center justify-center px-3 py-2 text-xs font-thin text-center text-gray-900 bg-gray-50 dark:bg-gray-900 border border-gray-400 rounded-lg">
                 {{ useUser().getCurrency(500000) }}
               </button> -->
             </div>
@@ -47,7 +47,7 @@
   });
   const title = useState("title");
   const config = useRuntimeConfig();
-  const { useUser } = useAuth();
+  
   const { user,getWallet } = storeToRefs(useUser());
   const sto = useLoading();
   const { useBookings, rating, cancel } = useBooking();
@@ -75,11 +75,11 @@
   }
   
   async function addMoney() {
-    if (recharge.value >= 10000) {
-      await useUser().addMoney(recharge.value,'PAGOPAR','user');
-    } else {
-      errorResponse("add amount greater than 10000");
-    }
+    //if (recharge.value >= 10000) {
+      await useUser().addMoney(recharge.value,'PAYUMONEY','user');
+    // } else {
+    //   errorResponse("add amount greater than 10000");
+    // }
   }
   
   async function startStripe() {

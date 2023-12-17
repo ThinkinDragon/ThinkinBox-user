@@ -5,7 +5,7 @@
         <Title> {{ title }}</Title>
         <div class="block w-full h-full" ref="mapDiv" />
     
-        <div class="sticky bottom-0 z-10 w-full p-2 bg-white dark:bg-gray-900" :class="mapTouch ? 'h-[5vh]' : 'transform h-[25vh]'">
+        <div class="sticky bottom-0 z-10 w-full p-2 bg-gray-50 dark:bg-gray-900" :class="mapTouch ? 'h-[5vh]' : 'transform h-[25vh]'">
           <form class="space-y-6" @submit.prevent="listProvider">
             <FormAddressFormNew label="address" :street="form.map_address" v-model:street="form.building" v-model:streetNumber="form.landmark" v-model:postcode="form.pincode" v-model:country="form.country" v-model:city="form.city" v-model:state="form.state" v-model:map_address="form.map_address" :picktime="false" @marker="addMarker" />
             <div class="flex flex-row justify-between w-full">

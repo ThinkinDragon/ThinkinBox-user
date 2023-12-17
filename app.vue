@@ -32,8 +32,8 @@ import { storeToRefs } from "pinia";
 import { GoogleMap } from '@capacitor/google-maps';
 import type { CreateMapArgs } from "@capacitor/google-maps/dist/typings/implementation";
 import { Keyboard } from "@capacitor/keyboard";
-// import mapStyle from '~/src/gmapStyle.json';
-// import mapStyleDark from '~/src/gmapStyleDark.json';
+import mapStyle from '~/src/gmapStyle.json';
+import mapStyleDark from '~/src/gmapStyleDark.json';
 
 const { width, height } = useWindowSize();
 
@@ -49,12 +49,13 @@ const title = useState("title");
 const { getBanner } = useHome();
 
 const { platform } = storeToRefs(useFirebase())
-const { useUser } = useAuth();
+
 const user = useUser();
-const { error, show } = storeToRefs(user)
+const { error } = storeToRefs(user)
 const { gps } = useGeolocation();
 const { reloadMap } = useMapFunction(map.value);
 const setting = useSetting();
+const { show } = storeToRefs(setting);
 
 const { isVisible } = useKeyboards();
 
@@ -75,7 +76,7 @@ onMounted(async () => {
     gps(),useFirebase().device(), user.connectWs(), useFirebase().registerNotifications(),
     , useLocalNotification().registerLocalNotifications(), 
     addressStore.printCurrentPosition(), startMap(),
-     setting.fetch(),getBanner()
+     setting.fetch(),getBanner(),
   ])
 
 
@@ -84,6 +85,11 @@ onMounted(async () => {
 })
 
 watchEffect(() => {
+  // if (colorMode.value == 'dark' && map.value) {
+  //   map.value.setOptions({
+  //     style:
+  //   })
+  // }
   if (isVisible) {
     useHead({
     bodyAttrs: {
@@ -117,7 +123,7 @@ async function startMap() {
          streetViewControl: false,
          rotateControl: false,
          fullscreenControl: false,
-         //styles: colorMode.value == 'dark' ? mapStyleDark : mapStyle
+         styles: colorMode.value == 'dark' ? mapStyleDark : mapStyle
       },
     };
   try {
@@ -188,6 +194,16 @@ capacitor-google-map {
   top: 0;
   left: 0;
   z-index: -1;
+}
+
+.vier-sheet-container > .vier-sheet {
+  @apply bg-gray-50 dark:bg-gray-800;
+}
+.vier-sheet-container > .vier-sheet > .vier-sheet-body{
+  @apply bg-gray-50 dark:bg-gray-800;
+}
+.van-cell{
+  @apply bg-gray-50 dark:bg-gray-900;
 }
 </style>
   

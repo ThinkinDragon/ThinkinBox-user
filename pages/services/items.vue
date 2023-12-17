@@ -2,7 +2,7 @@
     <div>
         <NuxtLayout name="single">
 
-            <div class="items-center w-auto mx-1 h-full">
+            <div class="items-center w-auto mt-4 m-1 h-full">
                 <template v-if="forType === 'none'">
                         <RequestSinglePackage v-for="(address, index) in addresses" :key="index" v-model:address="select_trip_address">
                             <template #final-button>
@@ -12,9 +12,28 @@
                             </template>
                         </RequestSinglePackage>
                 </template>
+
+                <template v-if="forType === 'mover'">
+                    <RequestSinglePackage v-for="(address, index) in addresses" :key="index" v-model:address="select_trip_address">
+                        <template #final-button>
+                            <div class="w-full p-2">
+                                <UiButton size="lg" class="w-full text-white dark:text-gray-900" :disabled="!dataFill" :to="`/services?for=${forType}`">Select Delivery methods</UiButton>
+                            </div>
+                        </template>
+                    </RequestSinglePackage>
+            </template>
+            <template v-if="forType === 'parcel'">
+                <RequestSinglePackage v-for="(address, index) in addresses" :key="index" v-model:address="select_trip_address">
+                    <template #final-button>
+                        <div class="w-full p-2">
+                            <UiButton size="lg" class="w-full text-white dark:text-gray-900" :disabled="!dataFill" :to="`/services?for=${forType}`">Select Delivery methods</UiButton>
+                        </div>
+                    </template>
+                </RequestSinglePackage>
+        </template>
                 <template v-else-if="forType === 'multi'">
                     <div class=" space-y-3">
-                        <div class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-100 dark:bg-gray-800 border rounded-lg">
+                        <div class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-50 dark:bg-gray-900 border rounded-lg">
                             <!-- <div class="flex w-10 flex-col space-y-2 items-center justify-center">
                                 <div class="flex w-4 h-4 bg-primary rounded-full" />
                             </div> -->
@@ -30,7 +49,7 @@
                             class="flex flex-col w-full py-2 ">
                             <!-- <div @click="select_trip_address = address">#{{ index }}</div> -->
                             <nuxt-link replace :to="`/single-address?for=${route.query.for}&input=${address.id}`"
-                            class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-100 dark:bg-gray-800 border rounded-lg my-2">
+                            class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-50 dark:bg-gray-900 border rounded-lg my-2">
                             <FormSingleAddressForm label="address" placeholder="delivery"
                                 v-model:street="address.address" v-model:latitude="address.latitude"
                                 v-model:longitude="address.longitude" v-model:map_address="address.address" />
@@ -42,12 +61,12 @@
                     <UiButton class="w-full" @click="addAddress">Add Delivery Point</UiButton>
 
                 </template>
-                <template v-else-if="forType !== 'none'">
+                <!-- <template v-else-if="forType !== 'none'">
                     <div class="space-y-6">
-                        <div class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-100 dark:bg-gray-800 border rounded-lg">
+                        <div class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-50 dark:bg-gray-900 border rounded-lg">
                             <div class="flex w-10 flex-col space-y-2 items-center justify-center">
                                 <div class="flex w-4 h-4 bg-primary rounded-full" />
-                                <div class="transform -rotate-90 w-8 h-1 bg-white dark:bg-gray-900 rounded-full" />
+                                <div class="transform -rotate-90 w-8 h-1 bg-gray-50 dark:bg-gray-900 rounded-full" />
                                 <svg class="w-full h-6 rounded-full" viewBox="0 0 13 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -117,7 +136,7 @@
                             <p class="text-base font-semibold text-white dark:text-gray-900">Fare Detail</p>
                         </UButton>
                     </div>
-                </template>
+                </template> -->
             </div>
             <!-- <template #bottom>
                 <div class="w-full p-2">
@@ -177,7 +196,7 @@ definePageMeta({
 const route = useRoute()
 const router = useRouter()
 const { useService, getEstimate, getEta, getBanner } = useHome();
-const { useUser } = useAuth();
+
 const config = useRuntimeConfig();
 const sto = useLoading();
 const forType = ref(route.query.for ?? 'none');
@@ -198,12 +217,14 @@ const popup = ref(false);
 const form = useAddress();
 const formReact = storeToRefs(useAddress());
 
+const title = useState("title");
 const { currPos } = storeToRefs(useAddress());
 const { platform } = useFirebase();
 const notif = useLocalNotification();
 let geocoder;
 
 onMounted(async () => {
+    title.value = forType.value;
     estimate.value = null;
 
     if (addresses.value.length == 0) {

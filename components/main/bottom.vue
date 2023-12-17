@@ -1,6 +1,6 @@
 <template>
   <div class="fixed bottom-0 z-10 items-center block w-full h-fit md:bg-white md:sticky sm:w-auto sm:px-8">
-    <div class="flex flex-row items-center bg-white dark:bg-gray-900 py-4 text-gray-800 justify-evenly sm:justify-between">
+    <div class="flex flex-row items-center bg-gray-50 dark:bg-gray-900 py-4 text-gray-800 justify-evenly sm:justify-between">
     <NuxtLink to="/" class="flex flex-col items-center ">
 	  <Icon name="material-symbols:home" :class="$route.name ==='index'?'text-black':'text-gray-500'" class="w-7 h-7" />
     </NuxtLink>

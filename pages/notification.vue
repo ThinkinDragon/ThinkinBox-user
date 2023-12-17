@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtLayout name="single">
-      <div class="flex flex-col items-center justify-center w-full pt-4 pb-6 space-y-6 bg-white dark:bg-gray-900">
+      <div class="flex flex-col items-center justify-center w-full pt-4 pb-6 space-y-6 bg-gray-50 dark:bg-gray-900">
         <div v-if="notifications?.length == 0" class="inline-flex flex-col items-center justify-start py-28">
           <div class="flex flex-col items-center justify-end flex-1 space-y-28">
             <img class="flex-1 rounded-lg w-36 h-28" src="~/assets/image/history.svg" />

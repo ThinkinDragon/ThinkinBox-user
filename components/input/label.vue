@@ -1,8 +1,11 @@
 <template>
-    <label class="items-start justify-start block px-4 text-xs">
+    <UFormGroup :label="$__(value)" :name="value">
+<slot />
+    </UFormGroup>
+    <!-- <label class="items-start justify-start block px-4 text-xs">
         <span v-if="value">{{ $__(value) }}</span>
         <span v-else><slot /></span>
-    </label>
+    </label> -->
 </template>
 
 <script>

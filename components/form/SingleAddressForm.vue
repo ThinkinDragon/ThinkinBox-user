@@ -9,12 +9,12 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </div>
-        <div v-show="addresses.length >0" class="absolute right-0 left-0 mt-14 z-50 rounded-md shadow-lg bg-gray-100 dark:bg-gray-800 ring-1 ring-black ring-opacity-5 p-1 space-y-1">
+        <div v-show="addresses.length >0" class="absolute right-0 left-0 mt-14 z-50 rounded-md shadow-lg bg-gray-50 dark:bg-gray-900 ring-1 ring-black ring-opacity-5 p-1 space-y-1">
             <!-- Search input -->
             <!-- <input id="search-input" class="block w-full px-4 py-2 text-gray-800 border rounded-md  border-gray-300 focus:outline-none" type="text" placeholder="Search items" autocomplete="off"> -->
             <!-- Dropdown content goes here -->
 
-            <button @click="setAddress(item)" v-for="(item, index) in addresses" :key="index" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md w-full">{{ item.description }}</button>
+            <button @click="setAddress(item)" v-for="(item, index) in addresses" :key="index" class=" px-4 py-2 text-gray-700 dark:text-gray-100 hover:bg-gray-100/20 text-start border-b border-dashed active:bg-blue-100 cursor-pointer w-full">{{ item.description }}</button>
           </div>
     </div>
 
@@ -49,11 +49,11 @@ const props = defineProps({
         default: 0,
     },
 });
-const emit = defineEmits(["marker", "clear", "recenter", "selected", "update:street", "update:map_address", "update:latitude", "update:longitude"]);
+const emit = defineEmits(["marker","hideMarker", "clear", "recenter", "selected", "update:street", "update:map_address", "update:latitude", "update:longitude"]);
 
 const date = ref("");
 const show = ref(false);
-const addresses = ref([]);
+const addresses = ref<any>([]);
 const select = ref(false);
 
 const formatDate = (date:any) => `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
@@ -64,7 +64,7 @@ const onConfirm = (value:any) => {
     date.value = formatDate(value);
 };
 const streetRef = ref();
-const {markerCenter:live} = useAddress()
+const {markerCenter,live} = useAddress()
 onMounted(async () => {
 
     const defaultBounds = {
@@ -110,6 +110,14 @@ onMounted(async () => {
   
 });
 
+
+watchEffect(() => {
+    if (select.value) {
+        emit("selected", select.value);
+    }else{
+        emit("selected", select.value);
+    }
+})
 // onUnmounted(() => {
 //     if (autocomplete) {
 //         google.maps.event.clearInstanceListeners(autocomplete);
@@ -118,8 +126,7 @@ onMounted(async () => {
 
 async function setAddress(para:any) {
     await useGoogleAutoComplete().autocompleteDetail(para.place_id).then((result:any) => {
-        console.log(result);
-        
+        emit("hideMarker", false);        
         emit("marker", result.geometry.location);
         emit("update:latitude", result.geometry.location.lat);
         emit("update:longitude", result.geometry.location.lng);
@@ -133,7 +140,6 @@ async function setAddress(para:any) {
 
 
 const selected = (value:any) => {
-
     emit("selected", value);
 };
 function updateText(event:any) {
@@ -145,6 +151,8 @@ function updateText(event:any) {
 
 const throttledFn = useThrottleFn(async(val) => {
     addresses.value = await useGoogleAutoComplete().autocomplete(val,currPos.value.lat,currPos.value.lng);
+    emit('hideMarker', true)
+    addresses.value = addresses.value.reverse();
 }, 1000)
 </script>
   

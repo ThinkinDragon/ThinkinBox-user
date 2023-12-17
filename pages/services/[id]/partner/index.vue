@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtLayout name="single">
-      <div class="inline-flex flex-col items-center justify-end w-full pt-4 pb-6 pl-5 pr-4 space-y-6 bg-white dark:bg-gray-900">
+      <div class="inline-flex flex-col items-center justify-end w-full pt-4 pb-6 pl-5 pr-4 space-y-6 bg-gray-50 dark:bg-gray-900">
         <div v-if="providers != undefined" class="relative flex flex-col w-full p-2 space-y-4">
           <div v-for="(item, index) in providers" :key="index" @click="edit(item)"
             class="inline-flex items-center justify-between w-full pb-2 space-x-4 border-b-2">
@@ -26,7 +26,7 @@
                   </p>
                 </div>
               </div>
-              <!-- <div class="inline-flex h-6 items-center justify-center rounded-md bg-gray-100 dark:bg-gray-800 px-1.5">
+              <!-- <div class="inline-flex h-6 items-center justify-center rounded-md bg-gray-50 dark:bg-gray-900 px-1.5">
                 <p class="text-xs font-semibold text-gray-900 dark:text-gray-200">{{ useUser().getCurrency(item.price) }}</p>
               </div> -->
             </div>
@@ -55,7 +55,7 @@
                   <p class="w-full text-sm font-semibold text-gray-900 dark:text-gray-200">{{ provider?.first_name }}</p>
                 </div>
                 <div class="flex flex-col items-start justify-evenly">
-                  <!-- <div class="inline-flex h-6 items-center justify-center rounded-md bg-gray-100 dark:bg-gray-800 px-1.5">
+                  <!-- <div class="inline-flex h-6 items-center justify-center rounded-md bg-gray-50 dark:bg-gray-900 px-1.5">
                       <p class="text-xs font-semibold text-gray-900 dark:text-gray-200">{{ useUser().getCurrency(item.price) }}</p>
                     </div> -->
                 </div>
@@ -113,7 +113,7 @@ definePageMeta({
   layout: false,
   middleware: ["auth"],
 });
-const { useUser } = useAuth();
+
 
 const { useBookings } = useBooking();
 const book = useBookings();

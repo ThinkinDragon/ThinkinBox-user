@@ -31,14 +31,16 @@
             <div class="relative w-full mt-4">
               <div class="relative w-full">
                 <InputOtp v-model="otp" :fields="6"></InputOtp>
-                <InputText class="w-full" type="text" placeholder="Enter Otp" @input="otp = $event.target.value" :value="otp" id="otp" />
+                <!-- <InputText class="w-full" type="text" placeholder="Enter Otp" @input="otp = $event.target.value" :value="otp" id="otp" /> -->
+                {{ otp }}
               </div>
             </div>
             <!-- <InputOtp :digit-count="6" @update:otp="otp = $event"></InputOtp> -->
           </FormLoginOtp>
           <div>
-            <button type="button" v-if="show" :disabled="loading" @click="otpLogin()"
-              class="inline-flex items-center justify-center w-full px-2 py-3 leading-6 bg-primary rounded-xl">
+            <UButton block size="xl" type="button" v-if="show" @click="otpLogin()"
+              
+              >
               <p class="text-base font-semibold text-white dark:text-gray-900">Login</p>
               <svg v-if="loading" class="w-5 h-5 mr-3 -ml-1 text-white dark:text-gray-900 animate-spin" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 24 24">
@@ -47,7 +49,7 @@
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                 </path>
               </svg>
-            </button>
+            </UButton>
             <button v-else :disabled="loading"
               class="inline-flex items-center justify-center w-full px-2 py-3 leading-6 bg-primary rounded-xl">
               <p class="text-base font-semibold text-white dark:text-gray-900">Request OTP</p>
@@ -84,11 +86,11 @@
             <div class="h-0.5 bg-gray-300 w-1/3" />
           </div>
           <div v-show="setting.social_login" class="inline-flex items-center justify-end w-full h-12 space-x-4">
-            <div class="flex space-x-2.5 items-center justify-center w-full h-full p-4 bg-gray-100 dark:bg-gray-800 border rounded-lg">
+            <div class="flex space-x-2.5 items-center justify-center w-full h-full p-4 bg-gray-50 dark:bg-gray-900 border rounded-lg">
               <img class="w-1/4" src="~/assets/image/facebook.png" />
               <p class="text-sm">{{ $__("Facebook") }}</p>
             </div>
-            <div class="flex space-x-2.5 items-center justify-center w-full h-full p-4 bg-gray-100 dark:bg-gray-800 border rounded-lg">
+            <div class="flex space-x-2.5 items-center justify-center w-full h-full p-4 bg-gray-50 dark:bg-gray-900 border rounded-lg">
               <img class="w-1/4" src="~/assets/image/google.png" />
               <p class="text-sm">{{ $__("Google") }}</p>
             </div>
@@ -123,7 +125,7 @@
   
   const title = useState("title");
   
-  const { useUser } = useAuth();
+  
   const sto = useLoading();
   const { loading } = storeToRefs(sto);
   const { error, mobile } = storeToRefs(useUser());
@@ -143,7 +145,7 @@
   const show = ref(false);
   
   onMounted(() => {
-    mobile.value = "+91"
+    //mobile.value = +91
 
     title.value = "login";
     watchEffect(() => {

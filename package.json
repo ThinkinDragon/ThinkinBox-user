@@ -5,8 +5,8 @@
     "build": "nuxt build",
     "generate": "nuxt generate",
     "start": "node .output/server/index.mjs",
-    "android": "nuxt generate && npx cap sync android && npx cap open android",
-    "ios": "nuxt generate && npx cap sync && npx cap open ios"
+    "android": "nuxt generate && bunx cap sync android && bunx cap open android",
+    "ios": "nuxt generate && bunx cap sync && bunx cap open ios"
   },
   "devDependencies": {
     "@capacitor/cli": "^5.5.1",
@@ -41,6 +41,7 @@
     "@capacitor/push-notifications": "^5.1.0",
     "@capacitor/share": "^5.0.6",
     "@capacitor/splash-screen": "^5.0.6",
+    "@capacitor/status-bar": "^5.0.6",
     "@capawesome/capacitor-app-update": "^5.0.1",
     "@chenfengyuan/vue-countdown": "^2.1.2",
     "@googlemaps/js-api-loader": "^1.16.2",
@@ -69,6 +70,7 @@
     "laravel-echo": "^1.15.1",
     "lucide-vue-next": "^0.290.0",
     "notiwind": "^2.0.2",
+    "nuxt-auth-sanctum": "^0.0.13",
     "nuxt-icon": "^0.6.1",
     "pinia-plugin-capacitor-persist": "^1.2.0",
     "pusher-js": "^8.3.0",

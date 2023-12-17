@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class=" bg-gray-100 dark:bg-gray-900 p-1 rounded-lg border-2 border-dashed">
     <LoadingData :data="estimate">
     <!-- Coupon Cell -->
     <van-coupon-cell :coupons="coupons" :chosen-coupon="chosenCoupon" @click="showList = true"
@@ -11,9 +11,9 @@
     </van-popup>
 
     <div v-if="estimate?.error == null"
-      class="relative items-center justify-center w-full px-2 bg-white dark:bg-gray-900 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg">
+      class="relative items-center justify-center w-full px-2 sm:mx-auto sm:max-w-lg">
       <form @submit.prevent="listProvider" enctype="multipart/form-data"
-        class="inline-flex flex-col items-center justify-center w-full px-1 py-4 space-y-5 bg-white dark:bg-gray-900">
+        class="inline-flex flex-col items-center justify-center w-full px-1 py-4 space-y-5 ">
         <div class="flex flex-col items-center justify-start gap-0.1">
           <div class="inline-flex items-start justify-between w-full space-x-44">
             <p class="text-sm leading-normal">{{ $__("Base fee") }}</p>
@@ -54,18 +54,27 @@
           </div>
           <div class="inline-flex items-start justify-between w-full space-x-44">
             <p class="text-sm leading-normal">{{ $__("Payment Mode") }}</p>
-              <USelectMenu v-model="form.payment_mode" :options="optionPayment" class=" mt-1 text-primary border-gray-300 rounded shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50" />
+              <USelectMenu  v-model="form.payment_mode" :options="optionPayment" class=" mt-1 text-primary flex-grow border-gray-300 rounded shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50" />
           </div>
         </div>
         <slot/>
+        <div class="inline-flex w-full items-center justify-center space-x-2 px-2.5">
+          <p class="text-sm leading-normal">{{ $__("Payment type") }} </p>
+
+          <URadio :ui="{ inner: 'ms-3 flex flex-row'}" v-for="method of options" :key="method.value" v-model="selected" v-bind="method" />
+
+        </div>
+        <!-- <URadioGroup v-model="selected" legend="Choose something" :options="options" /> -->
+
+
         <div class="inline-flex w-full items-start justify-start space-x-2 px-2.5">
           <!-- <button @click="isSchedule = !isSchedule"
-            class="flex items-center justify-center flex-1 px-5 py-3 bg-gray-100 dark:bg-gray-800 border border-gray-200 rounded-xl">
+            class="flex items-center justify-center flex-1 px-5 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 rounded-xl">
             <p class="text-base font-semibold text-center text-gray-900 dark:text-gray-200">{{ $__("Schedule") }}</p>
           </button> -->
-          <button type="submit" class="flex items-center justify-center flex-1 px-5 py-3 bg-primary rounded-xl">
+          <UButton type="submit"  size="xl" block>
             <p class="text-base font-semibold text-center text-gray-50">{{ $__("Request") }}</p>
-          </button>
+          </UButton>
 
         </div>
         <UModal class="z-[99999999] p-2" v-model="isSchedule">
@@ -79,7 +88,7 @@
                 <div class="flex flex-col w-full space-y-4">
                   <!-- <van-cell title="Select Date" :value="form.date" is-link @click="show = true">{{ form.date }}</van-cell> -->
                   <div @click="show = true"
-                    class="inline-flex items-start justify-start w-full p-4 space-x-3 bg-gray-100 dark:bg-gray-800 border-2 rounded-xl">
+                    class="inline-flex items-start justify-start w-full p-4 space-x-3 bg-gray-50 dark:bg-gray-900 border-2 rounded-xl">
                     <svg class="w-6 h-6" width="20" height="20" viewBox="0 0 20 20" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" clip-rule="evenodd"
@@ -100,7 +109,7 @@
     
                   <!-- <van-cell title="Select Time" :value="form.time" is-link @click="showPopup">{{ form.time }}</van-cell> -->
                   <div @click="showPopup"
-                    class="inline-flex items-start justify-start w-full p-4 space-x-3 bg-gray-100 dark:bg-gray-800 border-2 rounded-xl">
+                    class="inline-flex items-start justify-start w-full p-4 space-x-3 bg-gray-50 dark:bg-gray-900 border-2 rounded-xl">
                     <!-- <svg class="w-6 h-6" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="#6F767E" />
                             </svg> -->
@@ -142,7 +151,7 @@
           <template #footer>
             <div class="flex flex-row items-center justify-between w-full space-x-2">
               <button @click="scheduleReset()"
-                class="flex items-center content-between justify-center flex-1 w-full p-2 px-5 py-3 mt-4 bg-gray-100 dark:bg-gray-800 border border-gray-200 rounded-xl">
+                class="flex items-center content-between justify-center flex-1 w-full p-2 px-5 py-3 mt-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 rounded-xl">
                 <p class="text-base font-semibold text-center text-gray-900 dark:text-gray-200">{{ $__("Back") }}</p>
               </button>
   
@@ -157,7 +166,7 @@
       </form>
     </div>
     <div v-else
-      class="relative items-center justify-center w-full p-2 text-center bg-white dark:bg-gray-900 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg">
+      class="relative items-center justify-center w-full p-2 text-center bg-gray-50 dark:bg-gray-900 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg">
       {{ $__("Coming Soon") }}
     </div>
     </LoadingData>
@@ -178,7 +187,7 @@ const { loading } = storeToRefs(sto);
 const store = useService();
 
 let fdata = new FormData();
-const { useUser } = useAuth();
+
 const form = useAddress();
 const formDelivery = useDeliveryAddresses();
 const isSchedule = ref(false);
@@ -195,7 +204,18 @@ const { coupons, user } = storeToRefs(store2);
 
 const { service, estimate } = storeToRefs(store);
 
-const optionPayment = ['CASH','ONLINE'];
+const options = [{
+  value: 'pre',
+  label: 'Pre paid'
+}, {
+  value: 'post',
+  label: 'Post Paid'
+}
+]
+
+const selected = ref('pre')
+
+const optionPayment = ['CASH','PAYUMONEY'];
 const showList = ref(false);
 const chosenCoupon = ref(-1);
 

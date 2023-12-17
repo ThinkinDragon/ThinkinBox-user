@@ -2,7 +2,7 @@
   <div>
     <client-only>
   <div class="flex flex-col w-full h-full">
-    <div class="inline-flex items-center justify-center w-full h-12 bg-white dark:bg-gray-900">
+    <div class="inline-flex items-center justify-center w-full h-12 bg-gray-50 dark:bg-gray-900">
       <MainMobileNav />
     </div>
 
@@ -12,7 +12,7 @@
         class="relative block w-full overflow-hidden md:h-full" ref="mapDiv" />
       <!-- <capacitor-google-map v-else class="block w-full h-full" ref="mapDiv"></capacitor-google-map> -->
       <!-- :class="pressed ? 'h-[5vh]' : 'transform h-[40vh]'" -->
-      <div class="sticky bottom-0 z-10 w-full p-2 bg-white dark:bg-gray-900 rounded-t-2xl">
+      <div class="sticky bottom-0 z-10 w-full p-2 bg-gray-50 dark:bg-gray-900 rounded-t-2xl">
         <slot />
       </div>
     </div>
@@ -67,7 +67,7 @@ let marker1;
 let marker2;
 let clickListener = null;
 
-const { useUser } = useAuth();
+
 
 onMounted(async() => {
   startMap();

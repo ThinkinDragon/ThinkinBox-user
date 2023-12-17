@@ -50,9 +50,9 @@
 import { storeToRefs } from "pinia";
 import { type SwipeInstance } from "vant";
 
-const { useUser } = useAuth();
+
 const store2 = useUser();
-const { show } = storeToRefs(store2);
+const { show } = storeToRefs(useSetting());
 const { slider_1, slider_2, slider_3 } = storeToRefs(useSetting());
 const config = useRuntimeConfig();
 

@@ -81,9 +81,9 @@
           </van-popup>
   
           <div v-if="estimate?.error == null"
-            class="relative items-center justify-center w-full p-2 bg-white dark:bg-gray-900 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg">
+            class="relative items-center justify-center w-full p-2 bg-gray-50 dark:bg-gray-900 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg">
             <form @submit.prevent="listProviderNew" enctype="multipart/form-data"
-              class="inline-flex flex-col items-center justify-center w-full px-1 py-4 space-y-5 bg-white dark:bg-gray-900">
+              class="inline-flex flex-col items-center justify-center w-full px-1 py-4 space-y-5 bg-gray-50 dark:bg-gray-900">
               <!-- <div class="flex flex-col items-end justify-start space-y-1.5">
                 <div class="hidden 6xl:inline-flex items-center justify-center space-x-2.5 rounded-lg bg-blue-500 p-2">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,21 +111,21 @@
               </div> -->
               <!-- <p class="text-sm font-medium leading-normal w-80">Payment Type - Only Card</p> -->
               <div class="flex flex-col items-center justify-start space-y-2">
-                <div class="inline-flex items-start justify-between w-full space-x-44">
+                <div class="inline-flex items-start justify-between w-full">
                   <p class="text-sm leading-normal">{{ $__("Base fee") }}</p>
                   <p class="text-sm font-medium leading-normal text-right">{{ useUser().getCurrency(service?.fixed) }}</p>
                 </div>
   
                 <div v-if="service?.calculator == 'FIXED'"
-                  class="inline-flex items-start justify-between w-full space-x-44">
+                  class="inline-flex items-start justify-between w-full ">
                   <p class="text-sm leading-normal">{{ $__("Service charges") }} </p>
                   <p class="text-sm font-medium leading-normal text-right">{{ useUser().getCurrency(service?.price) }}</p>
                 </div>
-                <div v-else class="inline-flex items-start justify-between w-full space-x-44">
+                <div v-else class="inline-flex items-start justify-between w-full ">
                   <p class="text-sm leading-normal">{{ $__("Service charges") }}</p>
                   <p class="text-sm font-medium leading-normal text-right">{{ useUser().getCurrency(service?.price) }}</p>
                 </div>
-                <div v-if="user.wallet_balance != 0" class="inline-flex items-start justify-between w-full space-x-44">
+                <div v-if="user.wallet_balance != 0" class="inline-flex items-start justify-between w-full ">
                   <p class="text-sm leading-normal">{{ $__("Use wallet") }}</p>
                   <input type="checkbox"
                     class="w-4 mt-1 text-primary border-gray-300 rounded shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
@@ -136,7 +136,7 @@
               </div>
               <div v-if="!isSchedule" class="inline-flex w-full items-start justify-start space-x-2 px-2.5">
                 <button @click="isSchedule = !isSchedule"
-                  class="flex items-center justify-center flex-1 px-5 py-3 bg-gray-100 dark:bg-gray-800 border border-gray-200 rounded-xl">
+                  class="flex items-center justify-center flex-1 px-5 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 rounded-xl">
                   <p class="text-base font-semibold text-center text-gray-900 dark:text-gray-200">{{ $__("Schedule") }}</p>
                 </button>
                 <button type="submit" class="flex items-center justify-center flex-1 px-5 py-3 bg-primary rounded-xl">
@@ -149,7 +149,7 @@
                   <div class="flex flex-col w-full space-y-4">
                     <!-- <van-cell title="Select Date" :value="form.date" is-link @click="show = true">{{ form.date }}</van-cell> -->
                     <div @click="show = true"
-                      class="inline-flex items-start justify-start w-full p-4 space-x-3 bg-gray-100 dark:bg-gray-800 border-2 rounded-xl">
+                      class="inline-flex items-start justify-start w-full p-4 space-x-3 bg-gray-50 dark:bg-gray-900 border-2 rounded-xl">
                       <svg class="w-6 h-6" width="20" height="20" viewBox="0 0 20 20" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -170,7 +170,7 @@
   
                     <!-- <van-cell title="Select Time" :value="form.time" is-link @click="showPopup">{{ form.time }}</van-cell> -->
                     <div @click="showPopup"
-                      class="inline-flex items-start justify-start w-full p-4 space-x-3 bg-gray-100 dark:bg-gray-800 border-2 rounded-xl">
+                      class="inline-flex items-start justify-start w-full p-4 space-x-3 bg-gray-50 dark:bg-gray-900 border-2 rounded-xl">
                       <!-- <svg class="w-6 h-6" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="#6F767E" />
                       </svg> -->
@@ -209,7 +209,7 @@
             </div> -->
                 <div class="flex flex-row items-center justify-between w-full space-x-2">
                   <button @click="scheduleReset()"
-                    class="flex items-center content-between justify-center flex-1 w-full p-2 px-5 py-3 mt-4 bg-gray-100 dark:bg-gray-800 border border-gray-200 rounded-xl">
+                    class="flex items-center content-between justify-center flex-1 w-full p-2 px-5 py-3 mt-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 rounded-xl">
                     <p class="text-base font-semibold text-center text-gray-900 dark:text-gray-200">{{ $__("Back") }}</p>
                   </button>
   
@@ -223,7 +223,7 @@
             </form>
           </div>
           <div v-else
-            class="relative items-center justify-center w-full p-2 text-center bg-white dark:bg-gray-900 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg">
+            class="relative items-center justify-center w-full p-2 text-center bg-gray-50 dark:bg-gray-900 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg">
             {{ $__("Coming Soon") }}
           </div>
         </div>
@@ -253,7 +253,7 @@ definePageMeta({
   middleware: ["auth"],
 });
 let fdata = new FormData();
-const { useUser } = useAuth();
+
 const form = useAddress();
 const isSchedule = ref(false);
 const description = ref(null);

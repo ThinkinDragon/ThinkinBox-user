@@ -5,7 +5,7 @@
         props.post.title
       }}</NuxtLink>
     </h3>
-    <div class="post-meta text-gray-700 dark:text-gray-300 flex items-center space-x-2">
+    <div class="post-meta text-gray-700 dark:text-gray-100 dark:text-gray-300 flex items-center space-x-2">
       <div>{{ format(new Date(props.post.created_at), 'MMMM dd, yyyy') }}</div>
       <div>&middot;</div>
       <div>{{ props.post.user.name }}</div>

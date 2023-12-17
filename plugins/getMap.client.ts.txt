@@ -18,7 +18,12 @@ export default defineNuxtPlugin((nuxtApp) => {
     libraries: ["places","geometry"]
   });
 
-  return loader.load();
+  const geocoder = new (await loader.importLibrary('geocoding')).Geocoder();
+  //const places = new (await loader.importLibrary('places')).AutocompleteService();
+
+  return {
+    geocoder//,places
+  }
   }
   return {
     provide: {

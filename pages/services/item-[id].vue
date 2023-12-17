@@ -14,7 +14,7 @@
                 </template>
                 <template v-else-if="forType === 'multi'">
                     <div class=" space-y-3">
-                        <div class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-100 dark:bg-gray-800 border rounded-lg">
+                        <div class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-50 dark:bg-gray-900 border rounded-lg">
                             <!-- <div class="flex w-10 flex-col space-y-2 items-center justify-center">
                                 <div class="flex w-4 h-4 bg-primary rounded-full" />
                             </div> -->
@@ -30,7 +30,7 @@
                             class="flex flex-col w-full py-2 ">
                             <!-- <div @click="select_trip_address = address">#{{ index }}</div> -->
                             <nuxt-link replace :to="`/single-address?for=${route.query.for}&input=${address.id}`"
-                            class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-100 dark:bg-gray-800 border rounded-lg my-2">
+                            class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-50 dark:bg-gray-900 border rounded-lg my-2">
                             <FormSingleAddressForm label="address" placeholder="delivery"
                                 v-model:street="address.address" v-model:latitude="address.latitude"
                                 v-model:longitude="address.longitude" v-model:map_address="address.address" />
@@ -44,10 +44,10 @@
                 </template>
                 <template v-else-if="forType !== 'none'">
                     <div class="space-y-6">
-                        <div class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-100 dark:bg-gray-800 border rounded-lg">
+                        <div class="flex flex-row space-x-2 items-center justify-around p-2 bg-gray-50 dark:bg-gray-900 border rounded-lg">
                             <div class="flex w-10 flex-col space-y-2 items-center justify-center">
                                 <div class="flex w-4 h-4 bg-primary rounded-full" />
-                                <div class="transform -rotate-90 w-8 h-1 bg-white dark:bg-gray-900 rounded-full" />
+                                <div class="transform -rotate-90 w-8 h-1 bg-gray-50 dark:bg-gray-900 rounded-full" />
                                 <svg class="w-full h-6 rounded-full" viewBox="0 0 13 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -177,7 +177,7 @@ definePageMeta({
 const route = useRoute()
 const router = useRouter()
 const { useService, getEstimate, getEta, getBanner } = useHome();
-const { useUser } = useAuth();
+
 const config = useRuntimeConfig();
 const sto = useLoading();
 const forType = ref(route.query.for ?? 'none');

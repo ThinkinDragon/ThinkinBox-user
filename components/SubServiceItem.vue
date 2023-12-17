@@ -26,7 +26,7 @@
         <div class="inline-flex items-center justify-start w-full space-x-2">
           <p class="flex-1 text-xs font-medium leading-none text-gray-400 line-clamp-2">{{ $_api_(service?.description) }}</p>
         </div>
-        <!-- <div class="inline-flex h-6 items-center justify-center rounded-md bg-gray-100 dark:bg-gray-800 px-1.5">
+        <!-- <div class="inline-flex h-6 items-center justify-center rounded-md bg-gray-50 dark:bg-gray-900 px-1.5">
           <p class="text-xs font-semibold text-gray-900 dark:text-gray-200">{{ useUser().getCurrency(service.price) }}</p>
         </div> -->
       </div>
@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import { format } from "date-fns";
 const config = useRuntimeConfig();
-const { useUser } = useAuth();
+
 const props = defineProps({
   service: Object,
 });

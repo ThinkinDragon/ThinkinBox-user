@@ -1,14 +1,14 @@
 <template>
-<template v-if="stype">
-    <div class="inline-flex items-center justify-start px-2 bg-blue-100 rounded">
+  <template v-if="stype">
+    <UBadge size="xs" variant="soft">
       <p class="text-sm leading-normal text-right text-blue-500">{{ $__(state) }}</p>
-    </div>
-</template>
-  <div v-else class="flex items-center justify-between flex-1 h-full my-2">
-    <p class="inline-flex text-sm font-bold leading-normal text-gray-500 w-52">{{ $__("Status") }}</p>
-    <div class="inline-flex items-center justify-start px-2 bg-blue-100 rounded">
-      <p class="text-sm leading-normal text-right text-blue-500">{{ $__(state) }}</p>
-    </div>
+    </UBadge>
+  </template>
+  <div v-else class="flex flex-row  w-full sm:w-52 items-center justify-between flex-1 h-full my-2">
+    <p class="inline-flex text-sm font-bold leading-normal">{{ $__("Status") }}</p>
+    <UBadge size="xs" variant="soft">
+      <p class="text-sm leading-normal text-right ">{{ $__(state) }}</p>
+    </UBadge>
   </div>
 </template>
 
@@ -17,8 +17,8 @@ const props = defineProps({
   status: String,
   stype: {
     type: Boolean,
-    default:false,
+    default: false,
   },
 });
-const state = computed(() => {return props.status;});
+const state = computed(() => { return props.status; });
 </script>

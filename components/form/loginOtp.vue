@@ -3,15 +3,15 @@
     <div class="relative w-full mt-4">
       <InputLabel for="Mobile" value=" Mobile" />
 
-      <UInput :ui="ui" size="xl" type="number" placeholder="Enter mobile" :disabled="show" required
+      <InputText size="xl" type="number" placeholder="Enter mobile" :disabled="show" required
         @input="$emit('update:mobile', $event.target.value.replace(/\s/g,''))" :value="mobile" >
-        <template #leading>
+        <template #icon>
           <UAvatar
             src="https://www.worldatlas.com/r/w425/img/flag/in-flag.jpg"
             size="sm"
           />
         </template>
-      </UInput>
+      </InputText>
         <vue-tel-input v-show="false" @update:modelValue="value => $emit('update:mobile', value.replace(/\s/g,''))" class="inline-flex space-x-2.5 items-center justify-start w-full h-12 p-4 !bg-gray-100 border rounded-xl shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 outline-none border-none" default-country="IN" :modelValue="mobile" id="mobile" mode="auto" :disabled="show" ></vue-tel-input>
     </div>
     <div :class="show ? '' : 'hidden '" class="relative w-full mt-4">
@@ -46,7 +46,7 @@ const props = defineProps({
   }
 })
 
-const ui = {base : 'inline-flex space-x-2.5 items-center justify-start w-full h-12 p-4 bg-gray-100 dark:bg-gray-800 border rounded-xl shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 outline-none border-none'}
+const ui = {base : 'inline-flex space-x-2.5 items-center justify-start w-full h-12 p-4 bg-gray-50 dark:bg-gray-900 border rounded-xl shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 outline-none border-none'}
 </script>
 
 <style scoped>

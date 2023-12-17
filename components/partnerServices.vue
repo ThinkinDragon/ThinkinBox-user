@@ -19,7 +19,7 @@
 
         <TabPanels class="mt-2">
             <TabPanel v-for="(posts, idx) in services" :key="idx" :class="[
-                'rounded-xl bg-white dark:bg-gray-900 p-3',
+                'rounded-xl bg-gray-50 dark:bg-gray-900 p-3',
                 'ring-white ring-opacity-60 ring-offset-2 ring-offset-slate-400 ',
             ]">
                 <p class="flex mt-1 space-x-1 text-sm font-normal leading-4 rounded-md p-2 border-2 text-gray-500">
@@ -34,7 +34,7 @@
   
   <script setup>
   import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
-  const { useUser } = useAuth();
+  
   defineProps(['services']);
   
   </script>

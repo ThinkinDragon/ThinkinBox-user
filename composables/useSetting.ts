@@ -10,6 +10,8 @@ export const useSetting = defineStore("setting", {
   state: (): Setting => ({
     referral: [],
     about: null,
+    token: '',
+    show : true,
     term: null,
     privacy: null,
     languages:null,

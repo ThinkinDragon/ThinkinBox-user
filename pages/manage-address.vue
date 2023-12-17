@@ -2,7 +2,7 @@
   <div>
       <NuxtLayout name="map">
           <template #topnav>
-              <button class=" z-20 absolute top-0 w-10 h-10 bg-white dark:bg-gray-900 p-2 m-2 rounded-full">
+              <button class=" z-20 absolute top-0 w-10 h-10 bg-gray-50 dark:bg-gray-900 p-2 m-2 rounded-full">
                   <svg @click="serviceBack()" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
                       viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -12,10 +12,10 @@
 
           <template #sheet>
               <div class="flex flex-col gap-2">
-                  <UCard  :ui="cardInvisibleStyles">
+                  <UCard :ui="cardInvisibleStyles">
                     <template #header>
                       <h4>Confirm Address</h4>
-                      <div class="flex flex-row space-x-2.5 items-center justify-around shadow-xl p-2 bg-gray-100 dark:bg-gray-800 border rounded-lg">
+                      <div class="flex flex-row space-x-2.5 items-center justify-around shadow-xl p-2 bg-gray-50 dark:bg-gray-900 border rounded-lg">
                         <nuxt-link replace :to="`/single-address?for=${route.query.for}&input=pickup`" class="flex flex-col w-full items-center justify-end ">
                           <FormSingleAddressForm label="address" :street="form.s_map_address"
                           v-model:street="form.s_map_address" v-model:latitude="form.s_latitude" 
@@ -25,7 +25,7 @@
                     </template>
                     <div class="flex flex-col gap-2">
 
-                      <div v-for="item in addresses" :key="item.id" class="flex flex-row space-x-2.5 items-center justify-around shadow-xl p-2 bg-gray-100 dark:bg-gray-800 border rounded-lg">
+                      <div v-for="item in addresses" :key="item.id" class="flex flex-row space-x-2.5 items-center justify-around shadow-xl p-2 bg-gray-50 dark:bg-gray-900 border rounded-lg">
                       <nuxt-link replace :to="`/single-address?for=${route.query.for}&input=drop&itemId=${item.id}`" class="flex flex-col w-full items-center justify-end ">
                         <FormSingleAddressForm label="address" :street="item.address"
                         v-model:street="item.address" v-model:latitude="item.latitude" 
@@ -99,7 +99,7 @@ const map = inject('map');
 const route = useRoute()
 const router = useRouter()
 const { useService, getEstimate, getEta,getDirection, getBanner } = useHome();
-const { useUser } = useAuth();
+
 const config = useRuntimeConfig();
 const sto = useLoading();
 const { loading, silentLoading } = storeToRefs(sto)

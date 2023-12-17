@@ -1,5 +1,5 @@
 <template>
-    <div class="inline-flex h-64 flex-col items-start justify-start rounded-2xl bg-white dark:bg-gray-900">
+    <div class="inline-flex h-64 flex-col items-start justify-start rounded-2xl bg-gray-50 dark:bg-gray-900">
         <div class="h-10 w-full flex flex-auto justify-center self-center items-center rounded-t-lg bg-primary-500">
           <img class="h-24" :src="config.public.BASE_IMAGE_URL + setting?.home_logo" alt="request?.service_type?.marker" srcset="">
         </div>

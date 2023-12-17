@@ -47,6 +47,7 @@ watchEffect(() =>  {
                 <div class="font-bold justify-start text-sm text-gray-900 dark:text-white">{{ $_api_(good.name) }}</div>
                 <div>{{ $_api_(good.description) }}</div>
               </div>
+              <hr>
             </UButton>
           </div>
         </UModal>

@@ -1,5 +1,5 @@
 <template>
-  <!-- <div :class="$route.name === 'index' ? 'hidden' : ''" class="sticky top-0 z-10 object-cover w-full bg-white dark:bg-gray-900 bg-center realtive"> -->
+  <!-- <div :class="$route.name === 'index' ? 'hidden' : ''" class="sticky top-0 z-10 object-cover w-full bg-gray-50 dark:bg-gray-900 bg-center realtive"> -->
     <div class="sticky top-0 z-5 object-cover w-full  bg-center realtive">
       <nav class="relative z-10 flex items-start justify-between flex-grow p-2 mx-auto">
       <div class="relative inline">

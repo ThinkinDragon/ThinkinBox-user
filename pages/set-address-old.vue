@@ -6,8 +6,8 @@
     <!-- v-if="store.platform == 'web'" <capacitor-google-map v-else ref="mapDiv"></capacitor-google-map> -->
 
     <div
-      class="fixed md:right-24 top-0 w-full md:top-2 z-[5] flex flex-col md:pt-2 p-2 md:max-w-sm md:mt-16 safe-top bg-white dark:bg-gray-900 md:bg-transparent rounded-lg">
-      <nav class="w-full flex items-start justify-around flex-grow p-2 mx-auto bg-white dark:bg-gray-900 rounded-lg">
+      class="fixed md:right-24 top-0 w-full md:top-2 z-[5] flex flex-col md:pt-2 p-2 md:max-w-sm md:mt-16 safe-top bg-gray-50 dark:bg-gray-900 md:bg-transparent rounded-lg">
+      <nav class="w-full flex items-start justify-around flex-grow p-2 mx-auto bg-gray-50 dark:bg-gray-900 rounded-lg">
         <div class="relative inline">
           <div @click="$router.back()" type="button" class="relative inline-flex items-center mt-3 text-gray-800">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -31,14 +31,14 @@
           </slot>
         </div>
       </nav>
-      <form id="address" class="space-y-10 flex flex-col w-full bg-white dark:bg-gray-900 rounded-b-lg" @submit.prevent="back()">
-        <div class="flex flex-row space-x-2.5 items-center justify-around max-w-sm m-4 p-2 bg-gray-100 dark:bg-gray-800 border rounded-lg">
+      <form id="address" class="space-y-10 flex flex-col w-full bg-gray-50 dark:bg-gray-900 rounded-b-lg" @submit.prevent="back()">
+        <div class="flex flex-row space-x-2.5 items-center justify-around max-w-sm m-4 p-2 bg-gray-50 dark:bg-gray-900 border rounded-lg">
           <div class="flex w-10 flex-col space-y-2 items-center justify-center">
             <div class="flex w-4 h-4 bg-primary rounded-full" />
-            <div class="transform -rotate-90 w-9 h-1 bg-white dark:bg-gray-900 rounded-full" />
+            <div class="transform -rotate-90 w-9 h-1 bg-gray-50 dark:bg-gray-900 rounded-full" />
             <template v-if="route.query.for === 'multi'">
             
-            <div v-for="(item, index) in addresses" :key="index" class="transform -rotate-90 w-9 h-1 bg-white dark:bg-gray-900 rounded-full" />
+            <div v-for="(item, index) in addresses" :key="index" class="transform -rotate-90 w-9 h-1 bg-gray-50 dark:bg-gray-900 rounded-full" />
             </template>
             <svg class="w-full h-6 rounded-full" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"

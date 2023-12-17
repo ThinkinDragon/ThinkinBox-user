@@ -69,7 +69,7 @@
 
 <script setup lang="ts">
 import { format } from "date-fns";
-const { useUser } = useAuth();
+
 defineProps({
   booking: Object,
 });

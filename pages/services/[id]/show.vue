@@ -66,8 +66,8 @@
             <van-coupon-list :coupons="coupons" :chosen-coupon="chosenCoupon" @change="onChange" :showExchangeBar="false" :currency="`${user?.currency}`" />
           </van-popup>
   
-          <div v-if="estimate?.error == null " class="relative items-center justify-center w-full p-2 bg-white dark:bg-gray-900 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg">
-            <form @submit.prevent="listProvider" enctype="multipart/form-data" class="inline-flex flex-col items-center justify-center w-full px-1 py-4 space-y-5 bg-white dark:bg-gray-900">
+          <div v-if="estimate?.error == null " class="relative items-center justify-center w-full p-2 bg-gray-50 dark:bg-gray-900 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg">
+            <form @submit.prevent="listProvider" enctype="multipart/form-data" class="inline-flex flex-col items-center justify-center w-full px-1 py-4 space-y-5 bg-gray-50 dark:bg-gray-900">
               <div class="flex flex-col items-end justify-start space-y-1.5">
                 <div class="hidden 6xl:inline-flex items-center justify-center space-x-2.5 rounded-lg bg-blue-500 p-2">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,7 +111,7 @@
                 </div>
               </div>
               <div v-if="!isSchedule" class="inline-flex w-full items-start justify-start space-x-2 px-2.5">
-                <button @click="isSchedule = !isSchedule" class="flex items-center justify-center flex-1 px-5 py-3 bg-gray-100 dark:bg-gray-800 border border-gray-200 rounded-xl">
+                <button @click="isSchedule = !isSchedule" class="flex items-center justify-center flex-1 px-5 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 rounded-xl">
                   <p class="text-base font-semibold text-center text-gray-900 dark:text-gray-200">{{$__("Schedule")}}</p>
                 </button>
                 <button type="submit" class="flex items-center justify-center flex-1 px-5 py-3 bg-primary rounded-xl">
@@ -122,7 +122,7 @@
                 <ClientOnly>
                   <div class="flex flex-col w-full space-y-4">
                     <!-- <van-cell title="Select Date" :value="form.date" is-link @click="show = true">{{ form.date }}</van-cell> -->
-                    <div @click="show = true" class="inline-flex items-start justify-start w-full p-4 space-x-3 bg-gray-100 dark:bg-gray-800 border-2 rounded-xl">
+                    <div @click="show = true" class="inline-flex items-start justify-start w-full p-4 space-x-3 bg-gray-50 dark:bg-gray-900 border-2 rounded-xl">
                       <svg class="w-6 h-6" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M5 0C5.55228 0 6 0.447715 6 1V2H14V1C14 0.447715 14.4477 0 15 0C15.5523 0 16 0.447715 16 1V2H17C18.6569 2 20 3.34315 20 5V17C20 18.6569 18.6569 20 17 20H3C1.34315 20 0 18.6569 0 17V5C0 3.34315 1.34315 2 3 2H4V1C4 0.447715 4.44772 0 5 0ZM14 4V5C14 5.55228 14.4477 6 15 6C15.5523 6 16 5.55228 16 5V4H17C17.5523 4 18 4.44771 18 5V8H2V5C2 4.44772 2.44772 4 3 4H4V5C4 5.55228 4.44772 6 5 6C5.55228 6 6 5.55228 6 5V4H14ZM2 10V17C2 17.5523 2.44772 18 3 18H17C17.5523 18 18 17.5523 18 17V10H2Z" fill="#434355" />
                       </svg>
@@ -135,7 +135,7 @@
                     <van-calendar v-model="form.date" v-model:show="show" teleport="#modals" @confirm="gaetdate" color="#000000" />
   
                     <!-- <van-cell title="Select Time" :value="form.time" is-link @click="showPopup">{{ form.time }}</van-cell> -->
-                    <div @click="showPopup" class="inline-flex items-start justify-start w-full p-4 space-x-3 bg-gray-100 dark:bg-gray-800 border-2 rounded-xl">
+                    <div @click="showPopup" class="inline-flex items-start justify-start w-full p-4 space-x-3 bg-gray-50 dark:bg-gray-900 border-2 rounded-xl">
                       <!-- <svg class="w-6 h-6" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="#6F767E" />
                       </svg> -->
@@ -164,7 +164,7 @@
               <label for="type" value="type" />
             </div> -->
                 <div class="flex flex-row items-center justify-between w-full space-x-2">
-                  <button @click="scheduleReset()" class="flex items-center content-between justify-center flex-1 w-full p-2 px-5 py-3 mt-4 bg-gray-100 dark:bg-gray-800 border border-gray-200 rounded-xl">
+                  <button @click="scheduleReset()" class="flex items-center content-between justify-center flex-1 w-full p-2 px-5 py-3 mt-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 rounded-xl">
                     <p class="text-base font-semibold text-center text-gray-900 dark:text-gray-200">Back</p>
                   </button>
   
@@ -175,7 +175,7 @@
               </div>
             </form>
           </div>
-          <div v-else class="relative items-center justify-center w-full p-2 text-center bg-white dark:bg-gray-900 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg">
+          <div v-else class="relative items-center justify-center w-full p-2 text-center bg-gray-50 dark:bg-gray-900 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg">
             Coming Soon
           </div>
         </div>
@@ -205,7 +205,7 @@ definePageMeta({
   middleware: ["auth"],
 });
 let fdata = new FormData();
-const { useUser } = useAuth();
+
 const form = useAddress();
 const isSchedule = ref(false);
 const description = ref(null);

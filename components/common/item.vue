@@ -59,9 +59,9 @@ async function remove(params:any) {
               <div class="text-xs font-semibold truncate mt-1">{{ $_api_(item.name) }}</div>
               <!-- <div class="flex flex-row truncate"> -->
                 <div class="flex text-sm font-normal text-red-600">
-                  <!-- {{ useAuth().useUser().getCurrency(""+item?.price?.price+ +(item?.select_addon?.reduce((acc: number,
+                  <!-- {{ useUser().getCurrency(""+item?.price?.price+ +(item?.select_addon?.reduce((acc: number,
                     item: object) => acc + (item.pivot.price), 0) ?? 0)) }} -->
-                  <p >{{ useAuth().useUser().getCurrency(""+(item?.price * item.qty)) }} </p>
+                  <p >{{ useUser().getCurrency(""+(item?.price * item.qty)) }} </p>
                 </div>
               <!-- </div> -->
             </div>
@@ -72,11 +72,11 @@ async function remove(params:any) {
 
           <div :class="selected ? '' : 'hidden '" class="flex items-center border-gray-100">
             <span @click.self="remove(item)"
-              class="cursor-pointer rounded-l bg-gray-100 dark:bg-gray-800 py-1 px-3.5 duration-100 hover:bg-primary-500 hover:text-primary-50">
+              class="cursor-pointer rounded-l bg-gray-50 dark:bg-gray-900 py-1 px-3.5 duration-100 hover:bg-primary-500 hover:text-primary-50">
               - </span>
-            <div class="h-8 w-8 border bg-white dark:bg-gray-900 text-center text-xs outline-none pt-2"> {{+item.qty }}</div>
+            <div class="h-8 w-8 border bg-gray-50 dark:bg-gray-900 text-center text-xs outline-none pt-2"> {{+item.qty }}</div>
             <span @click.self="item.qty++"
-              class="cursor-pointer rounded-r bg-gray-100 dark:bg-gray-800 py-1 px-3 duration-100 hover:bg-primary-500 hover:text-primary-50">
+              class="cursor-pointer rounded-r bg-gray-50 dark:bg-gray-900 py-1 px-3 duration-100 hover:bg-primary-500 hover:text-primary-50">
               + </span>
           </div>
           <svg @click="add(item)" :class="selected ? 'hidden' : ' '" class="flex text-primary-500 w-32"
@@ -91,7 +91,7 @@ async function remove(params:any) {
         </div>
  
       </div>
-      <!-- <span :class="selected ? '': 'hidden '" class="cursor-pointer pt-2 rounded-sm bg-gray-100 dark:bg-gray-800 py-1 px-3.5 duration-100"> X </span> (${useAuth().useUser().getCurrency(addon.pivot.price)}) -->
+      <!-- <span :class="selected ? '': 'hidden '" class="cursor-pointer pt-2 rounded-sm bg-gray-50 dark:bg-gray-900 py-1 px-3.5 duration-100"> X </span> (${useUser().getCurrency(addon.pivot.price)}) -->
     </div>
   </button>
 </template>

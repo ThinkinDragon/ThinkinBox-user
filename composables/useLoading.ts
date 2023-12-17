@@ -1,8 +1,8 @@
 import { defineStore } from "pinia"
 
 export interface loading {
-  loading:Boolean;
-  silentLoading:Boolean;
+  loading:boolean;
+  silentLoading:boolean;
 }
 
 export const useLoading = defineStore('loading', {
